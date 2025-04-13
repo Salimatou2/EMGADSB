@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Accueil";
+}
+
+<!-- Accueil -->
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Bienvenue chez <span class="text-primary">EMG Voitures</span></h1>
+        <p class="lead">Trouvez la voiture de vos rêves au meilleur prix.</p>
+    </div>
+
+    <!-- Carousel -->
+    <div id="carCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner rounded shadow">
+            <div class="carousel-item active">
+                <img src="https://i.pinimg.com/originals/be/97/2f/be972fefdeed9cac42cf9f3e683b51b7.jpg" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Voiture 1">
+                <div class="carousel-caption bg-dark bg-opacity-50 rounded px-3 py-2">
+                    <h5>Qualité exceptionnelle</h5>
+                    <p>Nos voitures sont minutieusement inspectées et réparées.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://arc-anglerfish-eu-central-1-prod-leparisien.s3.amazonaws.com/public/N2F5Y3CNL35ZNBEOCNKWHP5HXA.jpg" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Voiture 2">
+                <div class="carousel-caption bg-dark bg-opacity-50 rounded px-3 py-2">
+                    <h5>Prix compétitifs</h5>
+                    <p>Obtenez le meilleur rapport qualité-prix sur le marché.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://2.bp.blogspot.com/--LETxZhlGfE/WepWjIGnNBI/AAAAAAAAg1k/kwuegIpV5q4sgsrDTdyrPyxSTDSpr1z0wCLcBGAs/w1200-h630-p-k-no-nu/Commentacheter-une-voiture-de-luxe.jpg" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Voiture 3">
+                <div class="carousel-caption bg-dark bg-opacity-50 rounded px-3 py-2">
+                    <h5>Service après-vente</h5>
+                    <p>Notre équipe reste à votre disposition après l'achat.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Précédent</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Suivant</span>
+        </button>
+    </div>
+
+    <!-- Avantages -->
+    <div class="row text-center mb-5">
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100">
+                <div class="card-body">
+                    <i class="fas fa-car fa-2x text-primary mb-3"></i>
+                    <h5 class="card-title">Large sélection</h5>
+                    <p class="card-text">Choisissez parmi une variété de marques et modèles adaptés à tous les besoins.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100">
+                <div class="card-body">
+                    <i class="fas fa-tools fa-2x text-primary mb-3"></i>
+                    <h5 class="card-title">Réparation pro</h5>
+                    <p class="card-text">Nos véhicules sont entretenus avec soin par des mécaniciens certifiés.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100">
+                <div class="card-body">
+                    <i class="fas fa-shield-alt fa-2x text-primary mb-3"></i>
+                    <h5 class="card-title">Garantie</h5>
+                    <p class="card-text">Bénéficiez d'une garantie fiable pour rouler en toute confiance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton Inventaire -->
+    <div class="text-center">
+        <a class="btn btn-lg btn-primary px-5" asp-controller="Cars" asp-action="Index">Voir l'inventaire</a>
+    </div>
+</div>

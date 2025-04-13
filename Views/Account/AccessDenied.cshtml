@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Accès refusé";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body text-center">
+                    <i class="bi bi-lock-fill" style="font-size: 5rem;"></i>
+                    <h5 class="mt-3">Vous n'êtes pas autorisé à accéder à cette ressource.</h5>
+                    <p>Cette page ou cette action nécessite des autorisations spécifiques que vous ne possédez pas.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Retourner à l'accueil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Administrateur créé";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success">
+                        @ViewBag.Message
+                    </div>
+                    <p>Vous pouvez maintenant vous connecter avec ce compte administrateur pour gérer le site.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Aller à la page de connexion</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

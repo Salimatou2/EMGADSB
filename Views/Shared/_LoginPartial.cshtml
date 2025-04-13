@@ -1,0 +1,25 @@
+﻿@* _LoginPartial.cshtml *@
+@using Microsoft.AspNetCore.Identity
+@using EMGADSB.Models;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <span class="nav-link text-light">Bonjour @User.Identity.Name!</span>
+        </li>
+        <li class="nav-item">
+            <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">
+                <button id="logout" type="submit" class="btn btn-link nav-link">Déconnexion</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Login">Connexion</a>
+        </li>
+    }
+</ul>

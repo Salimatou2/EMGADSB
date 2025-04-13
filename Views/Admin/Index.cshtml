@@ -1,0 +1,49 @@
+﻿@* Admin/Index.cshtml *@
+@{
+    ViewData["Title"] = "Administration";
+}
+
+<h1>Administration</h1>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Gestion des voitures
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Inventaire des voitures</h5>
+                <p class="card-text">Gérez l'inventaire des voitures, ajoutez, modifiez ou marquez les voitures comme vendues.</p>
+                <a asp-controller="Cars" asp-action="Index" class="btn btn-primary">Accéder à l'inventaire</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Statistiques
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Statistiques de vente</h5>
+                <p class="card-text">Consultez les statistiques des ventes et des voitures disponibles.</p>
+                <a asp-controller="Admin" asp-action="Statistics" class="btn btn-primary">Voir les statistiques</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Marques et modèles
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Gestion des marques et modèles</h5>
+                <p class="card-text">Gérez les marques et modèles de voitures disponibles.</p>
+                <a asp-controller="Admin" asp-action="ManageMakesModels" class="btn btn-primary">Gérer</a>
+            </div>
+        </div>
+    </div>
+</div>

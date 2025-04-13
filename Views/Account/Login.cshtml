@@ -1,0 +1,63 @@
+﻿@* Account/Login.cshtml *@
+@using EMGADSB.ViewModels
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Connexion";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <input asp-for="ReturnUrl" type="hidden" value="@ViewData["ReturnUrl"]" />
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Adresse email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Mot de passe</label>
+                            <input asp-for="Password" class="form-control" type="password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                        </div>
+                    </form>
+
+                    @* Affichage des messages d'erreur généraux *@
+                    @if (ViewData["Error"] != null)
+                    {
+                        <div class="alert alert-danger mt-3">
+                            <strong>Erreur :</strong> @ViewData["Error"]
+                        </div>
+                    }
+                </div>
+
+                <div class="card-footer text-center">
+                    <p class="mb-0">
+                        Vous n'avez pas de compte ?
+                        <a asp-controller="Register" asp-action="Register">S'inscrire</a>
+                    </p>
+                    <p class="mb-0">
+                        <a asp-controller="Account" asp-action="ForgotPassword">Mot de passe oublié ?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

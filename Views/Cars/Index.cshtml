@@ -1,0 +1,196 @@
+﻿@model IEnumerable<Car>
+
+@{
+    ViewData["Title"] = "Nos voitures";
+}
+
+<div class="container my-4">
+    <h1>@ViewData["Title"]</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            @* Avant : réservé aux Admins uniquement *@
+            <a asp-action="Create" class="btn btn-primary">Ajouter une nouvelle voiture</a>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control" placeholder="Rechercher...">
+                <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <label for="filterMake" class="form-label">Marque</label>
+            <select id="filterMake" class="form-select">
+                <option value="">Toutes les marques</option>
+                @foreach (var make in ViewBag.CarMakes ?? new List<SelectListItem>())
+                {
+                    <option value="@make.Value">@make.Text</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="filterYear" class="form-label">Année minimum</label>
+            <select id="filterYear" class="form-select">
+                <option value="">Toutes les années</option>
+                @for (int year = DateTime.Now.Year; year >= 2018; year--)
+                {
+                    <option value="@year">@year</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="filterPrice" class="form-label">Prix maximum</label>
+            <select id="filterPrice" class="form-select">
+                <option value="">Tous les prix</option>
+                <option value="5000000">5 000 000 FCFA</option>
+                <option value="10000000">10 000 000 FCFA</option>
+                <option value="15000000">15 000 000 FCFA</option>
+                <option value="20000000">20 000 000 FCFA</option>
+                <option value="25000000">25 000 000 FCFA</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="filterAvailable" class="form-label">Disponibilité</label>
+            <select id="filterAvailable" class="form-select">
+                <option value="">Toutes</option>
+                <option value="available" selected>Disponibles seulement</option>
+                <option value="sold">Vendues seulement</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="carsContainer" class="row">
+        @foreach (var car in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="@(string.IsNullOrEmpty(car.ImageUrl) ? "/images/default-car.jpg" : car.ImageUrl)"
+                         class="card-img-top"
+                         alt="@car.CarMakeNavigation?.Name @car.Model"
+                         style="height: 200px; object-fit: cover;" />
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @car.CarMakeNavigation?.Name @car.Model
+                        </h5>
+
+                        <p class="card-text">
+                            <strong>Année:</strong> @car.Year<br />
+                            <strong>Prix:</strong> @car.SellingPrice.ToString("N0") FCFA
+                        </p>
+
+                        @if (car.IsSold)
+                        {
+                            <div class="badge bg-danger text-white mb-2">Vendue</div>
+                        }
+                        else if (!car.IsAvailable)
+                        {
+                            <div class="badge bg-warning text-dark mb-2">Non disponible</div>
+                        }
+                        else
+                        {
+                            <div class="badge bg-success text-white mb-2">Disponible</div>
+                        }
+                    </div>
+
+                    <div class="card-footer bg-transparent">
+                        <div class="d-grid gap-2">
+                            <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-primary">Détails</a>
+
+                            @* Avant : réservé aux Admins uniquement *@
+                            <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-secondary">Modifier</a>
+
+                            @* Avant : réservé aux Admins uniquement *@
+                            @if (!car.IsSold)
+                            {
+                                <a asp-action="MarkAsSold" asp-route-id="@car.Id" class="btn btn-success">
+                                    Marquer comme vendue
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="noCarsMessage" class="my-5 text-center" style="display: none;">
+        <h3>Aucune voiture ne correspond à ces critères.</h3>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            function filterCars() {
+                var makeId = $('#filterMake').val();
+                var year = $('#filterYear').val();
+                var price = $('#filterPrice').val();
+                var availability = $('#filterAvailable').val();
+                var searchTerm = $('#searchInput').val().toLowerCase();
+
+                $('.col-md-4').each(function () {
+                    var $card = $(this);
+                    var cardTitle = $card.find('.card-title').text().toLowerCase();
+                    var cardYear = $card.find('.card-text').text().match(/Année: (\d+)/);
+                    var cardPrice = $card.find('.card-text').text().match(/Prix: ([\d\s]+) FCFA/);
+                    var isSold = $card.find('.badge.bg-danger').length > 0;
+                    var isAvailable = $card.find('.badge.bg-success').length > 0;
+
+                    var show = true;
+
+                    if (makeId && !cardTitle.includes($('#filterMake option:selected').text().toLowerCase())) {
+                        show = false;
+                    }
+
+                    if (year && cardYear && parseInt(cardYear[1]) < parseInt(year)) {
+                        show = false;
+                    }
+
+                    if (price && cardPrice) {
+                        var priceValue = parseInt(cardPrice[1].replace(/\s/g, ''));
+                        if (priceValue > parseInt(price)) {
+                            show = false;
+                        }
+                    }
+
+                    if (availability === 'available' && !isAvailable) {
+                        show = false;
+                    } else if (availability === 'sold' && !isSold) {
+                        show = false;
+                    }
+
+                    if (searchTerm && !cardTitle.includes(searchTerm)) {
+                        show = false;
+                    }
+
+                    $card.toggle(show);
+                });
+
+                if ($('.col-md-4:visible').length === 0) {
+                    $('#noCarsMessage').show();
+                } else {
+                    $('#noCarsMessage').hide();
+                }
+            }
+
+            $('#filterMake, #filterYear, #filterPrice, #filterAvailable').change(filterCars);
+            $('#searchButton').click(filterCars);
+            $('#searchInput').keyup(function (e) {
+                if (e.keyCode === 13) {
+                    filterCars();
+                }
+            });
+
+            filterCars(); // Initial filtering
+        });
+    </script>
+}

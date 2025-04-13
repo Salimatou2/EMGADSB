@@ -1,0 +1,98 @@
+﻿@model EMGADSB.Models.Car
+
+@{
+    ViewData["Title"] = "Détails";
+}
+
+<h1>Détails</h1>
+
+<div>
+    <h4>@Model.CarMakeNavigation.Name @Model.Model (@Model.Year)</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.CarMakeNavigation.Name @Model.Model" />
+            }
+            else
+            {
+                <img src="~/images/car-placeholder.jpg" class="img-fluid" alt="Image de voiture par défaut" />
+            }
+        </div>
+
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-4">Marque</dt>
+                <dd class="col-sm-8">@Model.CarMakeNavigation.Name</dd>
+
+                <dt class="col-sm-4">Modèle</dt>
+                <dd class="col-sm-8">@Model.Model</dd>
+
+                <dt class="col-sm-4">Année</dt>
+                <dd class="col-sm-8">@Model.Year</dd>
+
+                <dt class="col-sm-4">Prix de vente</dt>
+                <dd class="col-sm-8">@Model.SellingPrice.ToString("C")</dd>
+
+                <dt class="col-sm-4">État</dt>
+                <dd class="col-sm-8">
+                    @if (Model.IsSold)
+                    {
+                        <span class="badge badge-danger">Vendue</span>
+                    }
+                    else if (!Model.IsAvailable)
+                    {
+                        <span class="badge badge-warning">Non disponible</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-success">Disponible</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-4">Date d'ajout</dt>
+                <dd class="col-sm-8">@Model.DateAdded.ToShortDateString()</dd>
+
+                @if (Model.DateSold.HasValue)
+                {
+                    <dt class="col-sm-4">Date de vente</dt>
+                    <dd class="col-sm-8">@Model.DateSold.Value.ToShortDateString()</dd>
+                }
+            </dl>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    Description
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Model.Description</p>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+
+                <!-- Commenté cette ligne pour autoriser tout le monde -->
+                @* @if (User.IsInRole("Admin")) *@
+                @* { *@
+                @*     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Modifier</a> *@
+
+                @*     @if (!Model.IsSold && Model.IsAvailable) *@
+                @*     { *@
+                @*         <a asp-action="MarkAsSold" asp-route-id="@Model.Id" class="btn btn-danger">Marquer comme vendue</a> *@
+                @*     } *@
+                @* } *@
+
+                <!-- Modification pour autoriser tout le monde à voir le bouton "Modifier" -->
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Modifier</a>
+
+                <!-- Modification pour autoriser tout le monde à marquer comme vendue -->
+                @if (!Model.IsSold && Model.IsAvailable)
+                {
+                    <a asp-action="MarkAsSold" asp-route-id="@Model.Id" class="btn btn-danger">Marquer comme vendue</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
