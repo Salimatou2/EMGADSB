@@ -136,7 +136,7 @@
                 }
 
                 $.ajax({
-                    url: '@Url.Action("GetModelsByMake", "Cars")', // Correction de l'URL API -> Cars
+                    url: '@Url.Action("GetModelsByMake", "Cars")', 
                     type: 'GET',
                     data: { makeId: makeId },
                     success: function(models) {
