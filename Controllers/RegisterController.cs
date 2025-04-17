@@ -80,14 +80,14 @@ namespace EMGADSB.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // ✅ TA MÉTHODE AJOUTÉE ICI :
+    
         //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAdmin()
         {
             var admin = new ApplicationUser
             {
-                UserName = "admin@emgoasb.com",
-                Email = "admin@emgoasb.com",
+                UserName = "admin@emgvoitures.com",
+                Email = "admin@emgvoitures.com",
                 FirstName = "Admin",
                 LastName = "Principal"
             };
@@ -100,7 +100,7 @@ namespace EMGADSB.Controllers
 
                 if (result.Succeeded)
                 {
-                    // ➕ Assurer l'existence du rôle avant de l'assigner
+                    // Assurer l'existence du rôle avant de l'assigner
                     if (!await _roleManager.RoleExistsAsync("Admin"))
                     {
                         await _roleManager.CreateAsync(new IdentityRole("Admin"));

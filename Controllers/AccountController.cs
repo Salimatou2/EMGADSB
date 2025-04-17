@@ -52,20 +52,20 @@ namespace EMGADSB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            _logger.LogInformation("🔐 [LOGIN POST] Début de la tentative de connexion");
+            _logger.LogInformation("[LOGIN POST] Début de la tentative de connexion");
 
             returnUrl ??= Url.Content("~/");
             ViewData["ReturnUrl"] = returnUrl;
 
             if (ModelState.IsValid)
             {
-                _logger.LogInformation($"📨 Email: {model.Email}, RememberMe: {model.RememberMe}");
+                _logger.LogInformation($" Email: {model.Email}, RememberMe: {model.RememberMe}");
 
                 // Vérifier si l'utilisateur existe
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    _logger.LogWarning($"❌ Aucun utilisateur trouvé avec l'email: {model.Email}");
+                    _logger.LogWarning($"Aucun utilisateur trouvé avec l'email: {model.Email}");
                     ModelState.AddModelError(string.Empty, "Email ou mot de passe incorrect.");
                     return View(model);
                 }
@@ -78,12 +78,12 @@ namespace EMGADSB.Controllers
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("✅ Utilisateur connecté avec succès.");
+                    _logger.LogInformation("Utilisateur connecté avec succès.");
 
                     // Vérifier si l'utilisateur est admin
                     if (await _userManager.IsInRoleAsync(user, "Admin"))
                     {
-                        _logger.LogInformation("👑 L'utilisateur est un administrateur.");
+                        _logger.LogInformation("L'utilisateur est un administrateur.");
                         return RedirectToAction("Index", "Admin");
                     }
 
@@ -99,21 +99,21 @@ namespace EMGADSB.Controllers
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    _logger.LogWarning("⚠️ Connexion à deux facteurs requise.");
+                    _logger.LogWarning("Connexion à deux facteurs requise.");
                     return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("⛔ Compte utilisateur verrouillé.");
+                    _logger.LogWarning("Compte utilisateur verrouillé.");
                     return RedirectToAction(nameof(Lockout));
                 }
 
-                _logger.LogWarning("❌ Tentative de connexion invalide.");
+                _logger.LogWarning("Tentative de connexion invalide.");
                 ModelState.AddModelError(string.Empty, "Email ou mot de passe incorrect.");
                 return View(model);
             }
 
-            _logger.LogWarning("❌ Modèle invalide (ModelState non valide).");
+            _logger.LogWarning("Modèle invalide (ModelState non valide).");
             return View(model);
         }
 
@@ -121,7 +121,7 @@ namespace EMGADSB.Controllers
         [AllowAnonymous]
         public IActionResult LoginWith2fa(bool rememberMe, string returnUrl = null)
         {
-            // Implémenter la logique de 2FA ici si nécessaire
+            
             return View();
         }
 
