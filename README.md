@@ -26,14 +26,14 @@ L'application intègre un système d’authentification avec des rôles (Admin et Use
 - Recherche et filtrage de voitures
 - Affichage des marques et modèles
 - Authentification avec rôles
-- Zone d’administration (en cours)
+- Zone d’administration 
 - API pour récupérer les modèles selon la marque
 
 ---
 
 Conexion 
 
-Email : admin@emgoasb.com
+Email : admin@emgvoitures.com
 Mot de passe : Admin123!
 
 ---
