@@ -292,3 +292,5 @@ C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\EMGADS
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\ref\EMGADSB.dll
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\EMGADSB.sourcelink.json
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Administrateur\source\repos\EMGADSB\EMGADSB\obj\Debug\net8.0\EMGADSB.sourcelink.json
+C:\Users\Administrateur\source\repos\EMGADSB\EMGADSB\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

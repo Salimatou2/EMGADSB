@@ -1,4 +1,5 @@
 ﻿using EMGADSB.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +26,6 @@ namespace EMGADSB.ViewModels
 
         public string CurrentImageUrl { get; set; }
 
-        // Utiliser le même nom que celui dans la vue
         public IFormFile NewImage { get; set; }
 
         public bool KeepCurrentImage { get; set; } = true;
@@ -39,6 +39,14 @@ namespace EMGADSB.ViewModels
         public bool IsAvailable { get; set; }
 
         public bool IsSold { get; set; }
+
+        [Display(Name = "Date d'ajout")]
+        [DataType(DataType.Date)]
+        public DateTime DateAdded { get; set; } = DateTime.Now;
+
+        [Display(Name = "Date de vente")]
+        [DataType(DataType.Date)]
+        public DateTime? DateSold { get; set; }
 
         public List<CarMake> AvailableMakes { get; set; } = new List<CarMake>();
 

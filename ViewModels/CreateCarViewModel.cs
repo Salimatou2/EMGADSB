@@ -1,8 +1,8 @@
 ﻿using EMGADSB.Models;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace EMGADSB.ViewModels
 {
@@ -22,18 +22,20 @@ namespace EMGADSB.ViewModels
         [Required(ErrorMessage = "La description est requise")]
         public string Description { get; set; }
 
-        [Display(Name = "Image de la voiture")]
         public IFormFile Image { get; set; }
 
         [Required(ErrorMessage = "La marque est requise")]
-        [Display(Name = "Marque")]
         public int CarMakeId { get; set; }
 
         [Required(ErrorMessage = "Le modèle est requis")]
-        [Display(Name = "Modèle")]
         public int CarModelId { get; set; }
 
+        [Display(Name = "Date d'ajout")]
+        [DataType(DataType.Date)]
+        public DateTime DateAdded { get; set; } = DateTime.Now;
+
         public List<CarMake> AvailableMakes { get; set; } = new List<CarMake>();
+
         public List<CarModel> AvailableModels { get; set; } = new List<CarModel>();
     }
 }

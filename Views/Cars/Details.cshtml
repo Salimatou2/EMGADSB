@@ -1,99 +1,257 @@
 ﻿@model EMGADSB.Models.Car
 
 @{
-    ViewData["Title"] = "Détails de la voiture";
+    ViewData["Title"] = $"{Model.CarMake.Name} {Model.CarModel.Name} {Model.Year} - Détails";
 }
 
-<div class="container my-5">
-    <nav aria-label="breadcrumb">
+<!-- Styles spécifiques à cette page -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<style>
+    .car-details-image {
+        height: 500px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+        .car-details-image:hover {
+            transform: scale(1.02);
+        }
+
+    .badge-large {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+    }
+
+    .price-tag {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0d6efd;
+    }
+
+    .detail-section {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+        .detail-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+    .detail-icon {
+        color: #0d6efd;
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .detail-value {
+        font-weight: 400;
+        color: #212529;
+    }
+
+    .action-btn {
+        transition: all 0.3s ease;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+    .date-info {
+        margin-bottom: 0.5rem;
+        color: #6c757d;
+    }
+
+        .date-info i {
+            color: #0d6efd;
+            margin-right: 0.5rem;
+        }
+
+    .car-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .car-subtitle {
+        font-size: 1.5rem;
+        color: #6c757d;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="container my-5 animate__animated animate__fadeIn">
+    <!-- Fil d'Ariane -->
+    <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Accueil</a></li>
-            <li class="breadcrumb-item"><a asp-action="Index">Inventaire</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Détails</li>
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Accueil</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Inventaire</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.CarMake.Name @Model.CarModel.Name @Model.Year</li>
         </ol>
     </nav>
 
-    <div class="card shadow-sm">
-        <div class="row g-0">
-            <div class="col-md-5">
-                @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                {
-                    <img src="@Model.ImageUrl" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="@Model.Name">
-                }
-                else
-                {
-                    <img src="/images/cars/default.jpg" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="@Model.Name">
-                }
+    <!-- En-tête avec titre et badge de statut -->
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <h1 class="car-title">@Model.Name</h1>
+            <h2 class="car-subtitle">@Model.CarMake.Name @Model.CarModel.Name @Model.Year</h2>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+            @if (!Model.IsAvailable)
+            {
+                <span class="badge bg-danger badge-large shadow-sm">Non disponible</span>
+            }
+            else if (Model.IsSold)
+            {
+                <span class="badge bg-warning badge-large shadow-sm">Vendu</span>
+            }
+            else
+            {
+                <span class="badge bg-success badge-large shadow-sm">Disponible</span>
+            }
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Image de la voiture -->
+        <div class="col-lg-7 mb-4">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="car-details-image shadow" alt="@Model.Name">
+            }
+            else
+            {
+                <img src="/images/cars/default.jpg" class="car-details-image shadow" alt="@Model.Name">
+            }
+
+            <!-- Prix et dates -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div>
+                    <div class="date-info">
+                        <i class="bi bi-calendar-plus"></i> Ajoutée le @Model.DateAdded.ToString("dd MMMM yyyy")
+                    </div>
+                    @if (Model.IsSold && Model.DateSold.HasValue)
+                    {
+                        <div class="date-info">
+                            <i class="bi bi-calendar-check"></i> Vendue le @Model.DateSold.Value.ToString("dd MMMM yyyy")
+                        </div>
+                    }
+                </div>
+                <div class="price-tag">@Model.Price.ToString("C")</div>
             </div>
-            <div class="col-md-7">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <h1 class="card-title">@Model.Name</h1>
-                        <h3 class="text-primary">@Model.Price.ToString("C")</h3>
+        </div>
+
+        <!-- Informations de la voiture -->
+        <div class="col-lg-5">
+            <!-- Caractéristiques principales -->
+            <div class="detail-section">
+                <h3 class="mb-4"><i class="bi bi-info-circle detail-icon"></i> Caractéristiques principales</h3>
+                <div class="row g-3">
+                    <div class="col-6">
+                        <p><i class="bi bi-car-front"></i> <span class="detail-label">Marque:</span> <span class="detail-value">@Model.CarMake.Name</span></p>
                     </div>
-                    <h4 class="card-subtitle mb-3 text-muted">@Model.CarMake.Name @Model.CarModel.Name (@Model.Year)</h4>
-
-                    @if (!Model.IsAvailable)
-                    {
-                        <div class="badge bg-danger mb-3 fs-6">Non disponible</div>
-                    }
-                    else if (Model.IsSold)
-                    {
-                        <div class="badge bg-warning mb-3 fs-6">Vendu</div>
-                    }
-                    else
-                    {
-                        <div class="badge bg-success mb-3 fs-6">Disponible</div>
-                    }
-
-                    <hr>
-                    <h5>Description</h5>
-                    <p class="card-text">@Model.Description</p>
-
-                    <hr>
-                    <h5>Caractéristiques</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><strong>Marque:</strong> @Model.CarMake.Name</p>
-                            <p><strong>Modèle:</strong> @Model.CarModel.Name</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Année:</strong> @Model.Year</p>
-                            <p><strong>Prix:</strong> @Model.Price.ToString("C")</p>
-                        </div>
+                    <div class="col-6">
+                        <p><i class="bi bi-layers"></i> <span class="detail-label">Modèle:</span> <span class="detail-value">@Model.CarModel.Name</span></p>
                     </div>
-
-                    <div class="mt-4">
-                        <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Modifier</a>
-                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Supprimer</a>
-
-                            @if (!Model.IsSold && Model.IsAvailable)
-                            {
-                                <form asp-action="MarkAsSold" asp-route-id="@Model.Id" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-warning">Marquer comme vendu</button>
-                                </form>
-                            }
-
-                            @if (Model.IsAvailable)
-                            {
-                                <form asp-action="MarkAsUnavailable" asp-route-id="@Model.Id" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-outline-danger">Marquer comme indisponible</button>
-                                </form>
-                            }
-                            else
-                            {
-                                <form asp-action="MarkAsAvailable" asp-route-id="@Model.Id" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-outline-success">Marquer comme disponible</button>
-                                </form>
-                            }
-                        }
+                    <div class="col-6">
+                        <p><i class="bi bi-calendar3"></i> <span class="detail-label">Année:</span> <span class="detail-value">@Model.Year</span></p>
+                    </div>
+                    <div class="col-6">
+                        <p><i class="bi bi-tag"></i> <span class="detail-label">Prix:</span> <span class="detail-value fw-bold">@Model.Price.ToString("C")</span></p>
                     </div>
                 </div>
             </div>
+
+            <!-- Description -->
+            <div class="detail-section">
+                <h3 class="mb-3"><i class="bi bi-file-text detail-icon"></i> Description</h3>
+                <p class="mb-0">@Model.Description</p>
+            </div>
+
+            <!-- Actions administrateur -->
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="detail-section">
+                    <h3 class="mb-3"><i class="bi bi-gear detail-icon"></i> Actions administrateur</h3>
+                    <div class="d-flex flex-wrap">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary action-btn">
+                            <i class="bi bi-pencil me-1"></i> Modifier
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger action-btn">
+                            <i class="bi bi-trash me-1"></i> Supprimer
+                        </a>
+
+                        @if (!Model.IsSold && Model.IsAvailable)
+                        {
+                            <form asp-action="MarkAsSold" asp-route-id="@Model.Id" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-warning action-btn">
+                                    <i class="bi bi-tag me-1"></i> Marquer comme vendu
+                                </button>
+                            </form>
+                        }
+
+                        @if (Model.IsAvailable)
+                        {
+                            <form asp-action="MarkAsUnavailable" asp-route-id="@Model.Id" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger action-btn">
+                                    <i class="bi bi-x-circle me-1"></i> Marquer comme indisponible
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-action="MarkAsAvailable" asp-route-id="@Model.Id" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-success action-btn">
+                                    <i class="bi bi-check-circle me-1"></i> Marquer comme disponible
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            }
         </div>
     </div>
+
+    <!-- Bouton de retour -->
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Retour à l'inventaire
+        </a>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Animation au défilement
+            function animateSections() {
+                $('.detail-section').each(function(i) {
+                    setTimeout(function() {
+                        $('.detail-section').eq(i).addClass('animate__animated animate__fadeInUp');
+                    }, 150 * i);
+                });
+            }
+
+            // Exécuter l'animation au chargement
+            animateSections();
+        });
+    </script>
+}

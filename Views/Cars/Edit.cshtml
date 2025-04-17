@@ -92,6 +92,25 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
+                <!-- Ajout des champs de date -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="DateAdded" class="form-label">Date d'ajout</label>
+                            <input asp-for="DateAdded" class="form-control date-picker" type="date" />
+                            <span asp-validation-for="DateAdded" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="DateSold" class="form-label">Date de vente</label>
+                            <input asp-for="DateSold" class="form-control date-picker" type="date" />
+                            <small class="form-text text-muted">Applicable uniquement si la voiture est vendue</small>
+                            <span asp-validation-for="DateSold" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="form-check">
@@ -103,7 +122,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" asp-for="IsSold">
+                            <input class="form-check-input" type="checkbox" asp-for="IsSold" id="isSoldCheckbox">
                             <label class="form-check-label" asp-for="IsSold">
                                 Vendu
                             </label>
@@ -125,8 +144,39 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
+    <!-- Ajout de flatpickr pour un meilleur sélecteur de date -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+
     <script>
         $(document).ready(function() {
+            // Initialisation du sélecteur de date
+            flatpickr(".date-picker", {
+                locale: "fr",
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "j F Y",
+                allowInput: true
+            });
+
+            // Logique pour afficher/masquer la date de vente en fonction de l'état vendu
+            $('#isSoldCheckbox').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#DateSold').closest('.mb-3').show();
+                    // Si aucune date de vente n'est définie, on utilise la date du jour
+                    if (!$('#DateSold').val()) {
+                        $('#DateSold')[0]._flatpickr.setDate(new Date());
+                    }
+                } else {
+                    $('#DateSold').closest('.mb-3').hide();
+                    $('#DateSold').val('');
+                }
+            });
+
+            // Déclenchement initial pour définir l'état correct
+            $('#isSoldCheckbox').trigger('change');
+
             // Gestion dynamique des modèles en fonction de la marque
             $('#makeSelect').change(function() {
                 var makeId = $(this).val();
@@ -136,7 +186,7 @@
                 }
 
                 $.ajax({
-                    url: '@Url.Action("GetModelsByMake", "Cars")', 
+                    url: '@Url.Action("GetModelsByMake", "Cars")',
                     type: 'GET',
                     data: { makeId: makeId },
                     success: function(models) {

@@ -36,6 +36,24 @@
         border-radius: 6px;
     }
 
+    /* Nouveaux styles harmonisés pour les boutons d'action */
+    .action-btn {
+        transition: all 0.3s ease;
+        margin-right: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+    .admin-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
     /* Style pour les formulaires flottants */
     .form-floating > .form-control,
     .form-floating > .form-select {
@@ -50,6 +68,16 @@
         border-color: #0d6efd;
         box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
     }
+
+    /* Style pour les dates */
+    .date-info {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+
+        .date-info i {
+            color: #0d6efd;
+        }
 </style>
 
 <div class="container-fluid py-5 bg-light">
@@ -63,10 +91,10 @@
             @if (User.IsInRole("Admin"))
             {
                 <div class="col-lg-4 d-flex justify-content-lg-end align-items-center gap-2">
-                    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-primary btn-lg">
+                    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-primary btn-lg action-btn">
                         <i class="bi bi-gear me-2"></i>Administration
                     </a>
-                    <a asp-action="Create" class="btn btn-primary btn-lg">
+                    <a asp-action="Create" class="btn btn-primary btn-lg action-btn">
                         <i class="bi bi-plus-circle me-2"></i>Ajouter
                     </a>
                 </div>
@@ -118,7 +146,7 @@
                             </div>
                         </div>
                         <div class="col-md-1 d-flex align-items-center">
-                            <button type="submit" class="btn btn-primary w-100 h-75">
+                            <button type="submit" class="btn btn-primary w-100 h-75 action-btn">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
@@ -131,10 +159,10 @@
         {
             <div class="d-flex justify-content-end mb-4">
                 <div class="btn-group">
-                    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-primary">
+                    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-primary action-btn">
                         <i class="bi bi-speedometer2 me-2"></i>Tableau de bord
                     </a>
-                    <a asp-controller="Admin" asp-action="ManageMakesModels" class="btn btn-outline-primary">
+                    <a asp-controller="Admin" asp-action="ManageMakesModels" class="btn btn-outline-primary action-btn">
                         <i class="bi bi-car-front me-2"></i>Gérer marques/modèles
                     </a>
                 </div>
@@ -186,7 +214,16 @@
                                 <h5 class="card-title fw-bold mb-0">@car.Name</h5>
                                 <span class="badge bg-primary rounded-pill">@car.Year</span>
                             </div>
-                            <h6 class="card-subtitle mb-3 text-muted">@car.CarMake.Name @car.CarModel.Name</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">@car.CarMake.Name @car.CarModel.Name</h6>
+
+                            <!-- Affichage des dates -->
+                            <div class="date-info mb-2">
+                                <p class="mb-0"><i class="bi bi-calendar-plus me-1"></i> Ajoutée le @car.DateAdded.ToString("dd MMMM yyyy")</p>
+                                @if (car.IsSold && car.DateSold.HasValue)
+                                {
+                                    <p class="mb-0"><i class="bi bi-calendar-check me-1"></i> Vendue le @car.DateSold.Value.ToString("dd MMMM yyyy")</p>
+                                }
+                            </div>
 
                             <p class="card-text text-muted mb-3" style="height: 4.5rem; overflow: hidden;">
                                 @car.Description.Substring(0, Math.Min(150, car.Description.Length))...
@@ -194,7 +231,7 @@
 
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="fs-4 fw-bold text-primary">@car.Price.ToString("C")</span>
-                                <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-outline-primary">
+                                <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-outline-primary action-btn">
                                     Détails <i class="bi bi-arrow-right ms-1"></i>
                                 </a>
                             </div>
@@ -203,21 +240,21 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <div class="card-footer bg-white p-3 border-0">
-                                <div class="d-flex flex-wrap gap-2 justify-content-between">
-                                    <div class="btn-group" role="group">
-                                        <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-sm btn-outline-secondary">
+                                <div class="d-flex flex-wrap justify-content-between">
+                                    <div class="admin-actions">
+                                        <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-primary action-btn">
                                             <i class="bi bi-pencil me-1"></i>Modifier
                                         </a>
-                                        <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-sm btn-outline-danger">
+                                        <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger action-btn">
                                             <i class="bi bi-trash me-1"></i>Supprimer
                                         </a>
                                     </div>
 
-                                    <div class="btn-group" role="group">
+                                    <div class="admin-actions">
                                         @if (!car.IsSold)
                                         {
                                             <form asp-action="MarkAsSold" asp-route-id="@car.Id" method="post" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-warning">
+                                                <button type="submit" class="btn btn-warning action-btn">
                                                     <i class="bi bi-tag me-1"></i>Marquer vendu
                                                 </button>
                                             </form>
@@ -226,7 +263,7 @@
                                         @if (car.IsAvailable)
                                         {
                                             <form asp-action="MarkAsUnavailable" asp-route-id="@car.Id" method="post" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <button type="submit" class="btn btn-outline-danger action-btn">
                                                     <i class="bi bi-x-circle me-1"></i>Indisponible
                                                 </button>
                                             </form>
@@ -234,7 +271,7 @@
                                         else
                                         {
                                             <form asp-action="MarkAsAvailable" asp-route-id="@car.Id" method="post" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                <button type="submit" class="btn btn-outline-success action-btn">
                                                     <i class="bi bi-check-circle me-1"></i>Disponible
                                                 </button>
                                             </form>
@@ -254,7 +291,7 @@
                 <i class="bi bi-info-circle display-6 d-block mb-3"></i>
                 <h4>Aucun résultat trouvé</h4>
                 <p>Aucune voiture ne correspond à vos critères de recherche. Veuillez modifier vos filtres.</p>
-                <a asp-action="Index" class="btn btn-outline-primary mt-2">Voir toutes les voitures</a>
+                <a asp-action="Index" class="btn btn-outline-primary mt-2 action-btn">Voir toutes les voitures</a>
             </div>
         }
     </div>

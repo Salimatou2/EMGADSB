@@ -3,6 +3,7 @@ wwwroot\favicon.ico
 wwwroot\images\cars\23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg
 wwwroot\images\cars\3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg
 wwwroot\images\cars\44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg
+wwwroot\images\cars\4f2c8d60-baec-4da0-b894-b621e423d1cd_Range.jpeg
 wwwroot\images\cars\6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg
 wwwroot\images\cars\a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg
 wwwroot\images\cars\b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg

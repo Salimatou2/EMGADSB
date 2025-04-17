@@ -94,7 +94,8 @@ namespace EMGADSB.Controllers
             var viewModel = new CreateCarViewModel
             {
                 AvailableMakes = await _context.CarMakes.ToListAsync(),
-                AvailableModels = await _context.CarModels.ToListAsync()
+                AvailableModels = await _context.CarModels.ToListAsync(),
+                DateAdded = DateTime.Now
             };
             return View(viewModel);
         }
@@ -129,7 +130,7 @@ namespace EMGADSB.Controllers
                     CarModelId = viewModel.CarModelId,
                     IsAvailable = true,
                     IsSold = false,
-                    DateAdded = DateTime.Now
+                    DateAdded = viewModel.DateAdded // Utiliser la date fournie par l'utilisateur
                 };
 
                 if (viewModel.Image != null && viewModel.Image.Length > 0)
@@ -196,6 +197,8 @@ namespace EMGADSB.Controllers
                 CarModelId = car.CarModelId,
                 IsAvailable = car.IsAvailable,
                 IsSold = car.IsSold,
+                DateAdded = car.DateAdded,
+                DateSold = car.DateSold,
                 AvailableMakes = await _context.CarMakes.ToListAsync(),
                 AvailableModels = await _context.CarModels.ToListAsync()
             };
@@ -251,6 +254,17 @@ namespace EMGADSB.Controllers
                     car.CarModelId = viewModel.CarModelId ?? 0;
                     car.IsAvailable = viewModel.IsAvailable;
                     car.IsSold = viewModel.IsSold;
+                    car.DateAdded = viewModel.DateAdded;
+
+                    // Mettre à jour DateSold uniquement si la voiture est marquée comme vendue
+                    if (viewModel.IsSold)
+                    {
+                        car.DateSold = viewModel.DateSold ?? DateTime.Now;
+                    }
+                    else
+                    {
+                        car.DateSold = null; // Réinitialiser si la voiture n'est plus marquée comme vendue
+                    }
 
                     // Traitement de l'image
                     if (viewModel.NewImage != null && viewModel.NewImage.Length > 0)

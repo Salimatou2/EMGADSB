@@ -5,6 +5,14 @@
 }
 
 <div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Accueil</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Inventaire</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ajouter</li>
+        </ol>
+    </nav>
+
     <h1 class="mb-4">Ajouter une nouvelle voiture</h1>
 
     <div class="card shadow-sm">
@@ -46,7 +54,7 @@
 
                         <div class="mb-3">
                             <label asp-for="CarModelId" class="form-label">Modèle</label>
-                            <select asp-for="CarModelId" class="form-select" id="modelSelect" disabled>
+                            <select asp-for="CarModelId" class="form-select" id="modelSelect">
                                 <option value="">-- Sélectionnez d'abord une marque --</option>
                             </select>
                             <span asp-validation-for="CarModelId" class="text-danger"></span>
@@ -66,6 +74,13 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
+                <!-- Ajout du champ de date -->
+                <div class="mb-3">
+                    <label asp-for="DateAdded" class="form-label">Date d'ajout</label>
+                    <input asp-for="DateAdded" class="form-control date-picker" type="date" />
+                    <span asp-validation-for="DateAdded" class="text-danger"></span>
+                </div>
+
                 <div class="text-end">
                     <a asp-action="Index" class="btn btn-secondary">Annuler</a>
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
@@ -80,20 +95,33 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-    <script>
+    <!-- Ajout de flatpickr pour un meilleur sélecteur de date -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
 
+    <script>
         $(document).ready(function() {
+            // Initialisation du sélecteur de date
+            flatpickr(".date-picker", {
+                locale: "fr",
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "j F Y",
+                allowInput: true,
+                maxDate: "today"  // Ne permet pas de sélectionner une date future
+            });
+
             // Gestion dynamique des modèles en fonction de la marque
             $('#makeSelect').change(function() {
                 var makeId = $(this).val();
                 if (makeId === '') {
-                    $('#modelSelect').prop('disabled', true);
                     $('#modelSelect').html('<option value="">-- Sélectionnez d\'abord une marque --</option>');
                     return;
                 }
 
                 $.ajax({
-                    url: '/api/get-models-by-make',
+                    url: '@Url.Action("GetModelsByMake", "Cars")',
                     type: 'GET',
                     data: { makeId: makeId },
                     success: function(models) {
@@ -102,12 +130,6 @@
                             options += '<option value="' + model.id + '">' + model.name + '</option>';
                         });
                         $('#modelSelect').html(options);
-                        $('#modelSelect').prop('disabled', false);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Erreur lors du chargement des modèles:", error);
-                        $('#modelSelect').prop('disabled', true);
-                        $('#modelSelect').html('<option value="">-- Erreur de chargement --</option>');
                     }
                 });
             });
