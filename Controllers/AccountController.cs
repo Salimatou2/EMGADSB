@@ -5,120 +5,279 @@ using System.Threading.Tasks;
 using EMGADSB.Models;
 using EMGADSB.ViewModels;
 using EMGADSB.Data;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 
 namespace EMGADSB.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager,
-                                 UserManager<ApplicationUser> userManager,
-                                 RoleManager<IdentityRole> roleManager)
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            IConfiguration configuration,
+            ILogger<AccountController> logger)
         {
-            _signInManager = signInManager;
             _userManager = userManager;
+            _signInManager = signInManager;
             _roleManager = roleManager;
+            _configuration = configuration;
+            _logger = logger;
         }
 
-        // GET: /Account/Login
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl ?? Url.Content("~/");
+            returnUrl ??= Url.Content("~/");
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl ?? Url.Content("~/");
+            _logger.LogInformation("🔐 [LOGIN POST] Début de la tentative de connexion");
+
+            returnUrl ??= Url.Content("~/");
+            ViewData["ReturnUrl"] = returnUrl;
 
             if (ModelState.IsValid)
             {
-                // Recherche de l'utilisateur par email
-                var user = await _userManager.FindByEmailAsync(model.Email);
+                _logger.LogInformation($"📨 Email: {model.Email}, RememberMe: {model.RememberMe}");
 
-                // Vérification si l'utilisateur existe
+                // Vérifier si l'utilisateur existe
+                var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Utilisateur non trouvé.");
+                    _logger.LogWarning($"❌ Aucun utilisateur trouvé avec l'email: {model.Email}");
+                    ModelState.AddModelError(string.Empty, "Email ou mot de passe incorrect.");
                     return View(model);
                 }
 
-                // Vérification des rôles de l'utilisateur
-                var roles = await _userManager.GetRolesAsync(user);
-                var isInAdminRole = roles.Contains("Admin");
-
-                // Si l'utilisateur est admin, vérifie qu'il fait bien partie du rôle "Admin"
-                if (!isInAdminRole && await _roleManager.RoleExistsAsync("Admin"))
-                {
-                    Console.WriteLine("Le rôle Admin existe mais l'utilisateur n'en fait pas partie.");
-                }
-
-                // Tentative de connexion avec les informations fournies
                 var result = await _signInManager.PasswordSignInAsync(
-                    user,
-                    model.Password,
-                    isPersistent: model.RememberMe, // Gestion du cookie de session
-                    lockoutOnFailure: false
+                    model.Email, model.Password, model.RememberMe, lockoutOnFailure: false
                 );
 
-                // Si la connexion a réussi
+                _logger.LogInformation($"Résultat de connexion : {result.Succeeded}");
+
                 if (result.Succeeded)
                 {
-                    if (isInAdminRole)
+                    _logger.LogInformation("✅ Utilisateur connecté avec succès.");
+
+                    // Vérifier si l'utilisateur est admin
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
                     {
-                        // Redirection vers le tableau de bord Admin
+                        _logger.LogInformation("👑 L'utilisateur est un administrateur.");
                         return RedirectToAction("Index", "Admin");
+                    }
+
+                    // Si l'URL est valide, on redirige vers celle-ci
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
                     }
                     else
                     {
-                        // Redirection vers la page d'accueil
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
                     }
                 }
-                else
+                if (result.RequiresTwoFactor)
                 {
-                    // Affichage du message d'erreur si la connexion échoue
-                    string errorMessage = $"Échec de la connexion. Email: {model.Email}, " +
-                                          $"Utilisateur trouvé: {user != null}, " +
-                                          $"Est Admin: {isInAdminRole}, " +
-                                          $"Rôles: {string.Join(", ", roles)}";
+                    _logger.LogWarning("⚠️ Connexion à deux facteurs requise.");
+                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                }
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning("⛔ Compte utilisateur verrouillé.");
+                    return RedirectToAction(nameof(Lockout));
+                }
 
-                    Console.WriteLine(errorMessage);
+                _logger.LogWarning("❌ Tentative de connexion invalide.");
+                ModelState.AddModelError(string.Empty, "Email ou mot de passe incorrect.");
+                return View(model);
+            }
 
-                    // Ajout de l'erreur au modèle pour l'afficher à l'utilisateur
-                    ModelState.AddModelError(string.Empty, "Identifiants invalides.");
+            _logger.LogWarning("❌ Modèle invalide (ModelState non valide).");
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult LoginWith2fa(bool rememberMe, string returnUrl = null)
+        {
+            // Implémenter la logique de 2FA ici si nécessaire
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Lockout()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        {
+            returnUrl ??= Url.Content("~/");
+            ViewData["ReturnUrl"] = returnUrl;
+
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    EmailConfirmed = true // Pour simplifier, nous activons directement l'email
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("Utilisateur créé avec un nouveau mot de passe.");
+
+                    // Vérifier si le rôle "User" existe, sinon le créer
+                    if (!await _roleManager.RoleExistsAsync("User"))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("User"));
+                    }
+
+                    // Ajouter l'utilisateur au rôle "User"
+                    await _userManager.AddToRoleAsync(user, "User");
+
+                    // Connecter automatiquement l'utilisateur
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    // Si l'URL est valide, on redirige vers celle-ci
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                    }
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
             return View(model);
         }
 
-        // POST: /Account/Logout
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            _logger.LogInformation("Utilisateur déconnecté.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        private IActionResult RedirectToLocal(string returnUrl)
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
         {
-            if (Url.IsLocalUrl(returnUrl))
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                return Redirect(returnUrl);
+                return NotFound();
             }
-            else
+
+            return View(user);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> GetToken([FromBody] LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return BadRequest(ModelState);
             }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null || !(await _userManager.CheckPasswordAsync(user, model.Password)))
+            {
+                return Unauthorized();
+            }
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+
+            foreach (var role in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Secret"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JwtSettings:ExpirationInMinutes"]));
+
+            var token = new JwtSecurityToken(
+                _configuration["JwtSettings:Issuer"],
+                _configuration["JwtSettings:Audience"],
+                claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
+            return Ok(new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration = expires
+            });
         }
     }
 }

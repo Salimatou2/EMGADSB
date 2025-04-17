@@ -1,108 +1,153 @@
-﻿@* Cars/Edit.cshtml *@
-@model EMGADSB.Models.Car
+﻿@model EMGADSB.ViewModels.CarEditViewModel
 
 @{
     ViewData["Title"] = "Modifier la voiture";
 }
 
-<h1>Modifier la voiture</h1>
-<hr />
+<div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Accueil</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Inventaire</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modifier</li>
+        </ol>
+    </nav>
 
-<div class="row">
-    <div class="col-md-8">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+    <h1 class="mb-4">Modifier la voiture</h1>
 
-            <div class="form-group">
-                <label asp-for="CarMakeId" class="control-label">Marque</label>
-                <select asp-for="CarMakeId" class="form-control" asp-items="ViewBag.CarMakes" id="makeSelect">
-                </select>
-                <span asp-validation-for="CarMakeId" class="text-danger"></span>
-            </div>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Edit" enctype="multipart/form-data" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CurrentImageUrl" />
 
-            <div class="form-group">
-                <label asp-for="Model" class="control-label">Modèle</label>
-                <select asp-for="Model" class="form-control" id="modelSelect">
-                </select>
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Nom</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="Year" class="control-label">Année</label>
-                <input asp-for="Year" class="form-control" type="number" min="2018" max="2025" />
-                <span asp-validation-for="Year" class="text-danger"></span>
-            </div>
+                        <div class="mb-3">
+                            <label asp-for="Year" class="form-label">Année</label>
+                            <input asp-for="Year" class="form-control" type="number" min="2018" max="2100" />
+                            <span asp-validation-for="Year" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="PurchasePrice" class="control-label">Prix d'achat</label>
-                <input asp-for="PurchasePrice" class="form-control" />
-                <span asp-validation-for="PurchasePrice" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="SellingPrice" class="control-label">Prix de vente</label>
-                <input asp-for="SellingPrice" class="form-control" />
-                <span asp-validation-for="SellingPrice" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Description" class="control-label">Description</label>
-                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                {
-                    <div class="mb-2">
-                        <img src="@Model.ImageUrl" style="max-width:300px" />
+                        <div class="mb-3">
+                            <label asp-for="Price" class="form-label">Prix</label>
+                            <input asp-for="Price" class="form-control" type="number" step="0.01" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
                     </div>
-                }
 
-                <label class="control-label">Nouvelle image (optionnel)</label>
-                <input type="file" name="ImageFile" class="form-control-file" />
-            </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="CarMakeId" class="form-label">Marque</label>
+                            <select asp-for="CarMakeId" class="form-select"
+                                    asp-items="@(new SelectList(Model.AvailableMakes, "Id", "Name"))"
+                                    id="makeSelect">
+                                <option value="">-- Sélectionnez une marque --</option>
+                            </select>
+                            <span asp-validation-for="CarMakeId" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <div class="form-check">
-                    <input asp-for="IsAvailable" class="form-check-input" />
-                    <label asp-for="IsAvailable" class="form-check-label">Disponible</label>
+                        <div class="mb-3">
+                            <label asp-for="CarModelId" class="form-label">Modèle</label>
+                            <select asp-for="CarModelId" class="form-select" id="modelSelect">
+                                <option value="">-- Sélectionnez d'abord une marque --</option>
+                                @foreach (var carmodel in Model.AvailableModels.Where(m => m.CarMakeId == Model.CarMakeId))
+                                {
+                                    <option value="@carmodel.Id">@carmodel.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="CarModelId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input asp-for="NewImage" class="form-control" type="file" accept="image/*" />
+                            <span asp-validation-for="NewImage" class="text-danger"></span>
+                            @if (!string.IsNullOrEmpty(Model.CurrentImageUrl))
+                            {
+                                <div class="mt-2">
+                                    <img src="@Model.CurrentImageUrl" alt="Image actuelle" class="img-thumbnail" style="max-height: 100px;" />
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" asp-for="KeepCurrentImage" checked>
+                                        <label class="form-check-label" asp-for="KeepCurrentImage">
+                                            Conserver cette image si aucune nouvelle n'est téléchargée
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <input type="submit" value="Enregistrer" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Annuler</a>
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" asp-for="IsAvailable">
+                            <label class="form-check-label" asp-for="IsAvailable">
+                                Disponible
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" asp-for="IsSold">
+                            <label class="form-check-label" asp-for="IsSold">
+                                Vendu
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
     <script>
-        $(document).ready(function () {
-            // Charger les modèles pour la marque sélectionnée au chargement de la page
-            loadModels();
-
-            // Recharger les modèles quand la marque change
-            $('#makeSelect').change(function () {
-                loadModels();
-            });
-
-            function loadModels() {
-                var makeId = $('#makeSelect').val();
-                if (makeId) {
-                    var selectedModel = '@Model.Model';
-                    $.getJSON('/api/CarMakes/' + makeId + '/models', function (data) {
-                        $('#modelSelect').empty();
-                        $.each(data, function (i, item) {
-                            var selected = (item.name === selectedModel) ? 'selected' : '';
-                            $('#modelSelect').append('<option value="' + item.name + '" ' + selected + '>' + item.name + '</option>');
-                        });
-                    });
+        $(document).ready(function() {
+            // Gestion dynamique des modèles en fonction de la marque
+            $('#makeSelect').change(function() {
+                var makeId = $(this).val();
+                if (makeId === '') {
+                    $('#modelSelect').html('<option value="">-- Sélectionnez d\'abord une marque --</option>');
+                    return;
                 }
-            }
+
+                $.ajax({
+                    url: '@Url.Action("GetModelsByMake", "Cars")', // Correction de l'URL API -> Cars
+                    type: 'GET',
+                    data: { makeId: makeId },
+                    success: function(models) {
+                        var options = '<option value="">-- Sélectionnez un modèle --</option>';
+                        $.each(models, function(i, model) {
+                            options += '<option value="' + model.id + '">' + model.name + '</option>';
+                        });
+                        $('#modelSelect').html(options);
+                    }
+                });
+            });
         });
     </script>
 }

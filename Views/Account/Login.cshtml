@@ -1,63 +1,49 @@
-﻿@* Account/Login.cshtml *@
-@using EMGADSB.ViewModels
+﻿@using EMGADSB.ViewModels
 @model LoginViewModel
 @{
     ViewData["Title"] = "Connexion";
 }
-
-<div class="container mt-5">
+<div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">@ViewData["Title"]</h4>
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Connexion</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                        <input asp-for="ReturnUrl" type="hidden" value="@ViewData["ReturnUrl"]" />
-
-                        <div asp-validation-summary="All" class="text-danger"></div>
-
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <!-- Champ caché pour ReturnUrl -->
+                        <input type="hidden" asp-for="ReturnUrl" value="@ViewData["ReturnUrl"]" />
                         <div class="mb-3">
                             <label asp-for="Email" class="form-label">Adresse email</label>
-                            <input asp-for="Email" class="form-control" />
+                            <input asp-for="Email" class="form-control" type="email" autocomplete="email" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
-
                         <div class="mb-3">
                             <label asp-for="Password" class="form-label">Mot de passe</label>
-                            <input asp-for="Password" class="form-control" type="password" />
+                            <input asp-for="Password" class="form-control" type="password" autocomplete="current-password" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                        <div class="mb-3 form-check">
+                            <input asp-for="RememberMe" class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label">Se souvenir de moi</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Connexion</button>
                         </div>
                     </form>
-
-                    @* Affichage des messages d'erreur généraux *@
-                    @if (ViewData["Error"] != null)
-                    {
-                        <div class="alert alert-danger mt-3">
-                            <strong>Erreur :</strong> @ViewData["Error"]
-                        </div>
-                    }
                 </div>
-
                 <div class="card-footer text-center">
-                    <p class="mb-0">
-                        Vous n'avez pas de compte ?
-                        <a asp-controller="Register" asp-action="Register">S'inscrire</a>
-                    </p>
-                    <p class="mb-0">
-                        <a asp-controller="Account" asp-action="ForgotPassword">Mot de passe oublié ?</a>
-                    </p>
+                    <p class="mb-0">Vous n'avez pas de compte ? <a asp-action="Register">Créer un compte</a></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 @section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

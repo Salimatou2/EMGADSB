@@ -201,5 +201,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EMGADSB.Controllers.CarsApiController",
+    "Method": "GetModelsByMake",
+    "RelativePath": "api/get-models-by-make",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "makeId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

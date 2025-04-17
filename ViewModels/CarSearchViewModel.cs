@@ -1,14 +1,16 @@
-﻿namespace EMGADSB.ViewModels
+﻿using EMGADSB.Models;
+
+namespace EMGADSB.ViewModels
 {
     public class CarSearchViewModel
     {
-        public int? CarMakeId { get; set; }
-        public int? MinYear { get; set; }
-        public int? MaxYear { get; set; }
+        public List<Car> Cars { get; set; }
+        public string SearchString { get; set; }
+        public int? MakeId { get; set; }
+        public int? ModelId { get; set; }
         public decimal? MinPrice { get; set; }
         public decimal? MaxPrice { get; set; }
-        public bool AvailableOnly { get; set; } = true;
-        public string SortBy { get; set; } = "DateAdded";
-        public string SortDirection { get; set; } = "Desc";
+        public List<CarMake> Makes { get; set; }
+        public List<CarModel> Models { get; set; }
     }
 }

@@ -9,81 +9,113 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EMGADSB
 build_property.RootNamespace = EMGADSB
-build_property.ProjectDir = C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\
+build_property.ProjectDir = C:\Users\Administrateur\source\repos\EMGADSB\EMGADSB\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB
+build_property.MSBuildProjectDirectory = C:\Users\Administrateur\source\repos\EMGADSB\EMGADSB
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Account/AccessDenied.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Account/Login.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Admin/Index.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Cars/Create.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Admin/ManageMakesModels.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFuYWdlTWFrZXNNb2RlbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Admin/Statistics.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU3RhdGlzdGljcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/CarMakes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyTWFrZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/CarMakes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyTWFrZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/CarMakes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyTWFrZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/CarMakes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyTWFrZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Cars/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fyc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Cars/Details.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Cars/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fyc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Cars/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fyc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Cars/Edit.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Cars/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fyc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Cars/Index.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Cars/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fyc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Home/Index.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Home/Privacy.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Register/AdminCreated.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Register/AdminCreated.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcQWRtaW5DcmVhdGVkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Register/Register.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Register/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcUmVnaXN0ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Shared/Error.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/_ViewImports.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/_ViewStart.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Administrateur/source/repos/EMG/EMGADSB/EMGADSB/Views/Shared/_Layout.cshtml]
+[C:/Users/Administrateur/source/repos/EMGADSB/EMGADSB/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ytr539g3ih

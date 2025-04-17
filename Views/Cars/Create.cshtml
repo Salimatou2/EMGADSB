@@ -1,92 +1,115 @@
-﻿@model EMGADSB.Models.Car
+﻿@model EMGADSB.ViewModels.CreateCarViewModel
 
 @{
     ViewData["Title"] = "Ajouter une voiture";
 }
 
-<h1>Ajouter une nouvelle voiture</h1>
-<hr />
+<div class="container my-5">
+    <h1 class="mb-4">Ajouter une nouvelle voiture</h1>
 
-<div class="row">
-    <div class="col-md-8">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="CarMakeId" class="control-label">Marque</label>
-                <select asp-for="CarMakeId" class="form-control" asp-items="ViewBag.CarMakes" id="makeSelect">
-                    <option value="">-- Sélectionner une marque --</option>
-                </select>
-                <span asp-validation-for="CarMakeId" class="text-danger"></span>
-            </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Nom</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="Model" class="control-label">Modèle</label>
-                <select asp-for="Model" class="form-control" id="modelSelect" disabled>
-                    <option value="">-- Sélectionner un modèle --</option>
-                </select>
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
+                        <div class="mb-3">
+                            <label asp-for="Year" class="form-label">Année</label>
+                            <input asp-for="Year" class="form-control" type="number" min="2018" max="2100" />
+                            <span asp-validation-for="Year" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="Year" class="control-label">Année</label>
-                <input asp-for="Year" class="form-control" type="number" min="2018" max="2025" />
-                <span asp-validation-for="Year" class="text-danger"></span>
-            </div>
+                        <div class="mb-3">
+                            <label asp-for="Price" class="form-label">Prix</label>
+                            <input asp-for="Price" class="form-control" type="number" step="0.01" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="PurchasePrice" class="control-label">Prix d'achat</label>
-                <input asp-for="PurchasePrice" class="form-control" />
-                <span asp-validation-for="PurchasePrice" class="text-danger"></span>
-            </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="CarMakeId" class="form-label">Marque</label>
+                            <select asp-for="CarMakeId" class="form-select"
+                                    asp-items="@(new SelectList(Model.AvailableMakes, "Id", "Name"))"
+                                    id="makeSelect">
+                                <option value="">-- Sélectionnez une marque --</option>
+                            </select>
+                            <span asp-validation-for="CarMakeId" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="SellingPrice" class="control-label">Prix de vente</label>
-                <input asp-for="SellingPrice" class="form-control" />
-                <span asp-validation-for="SellingPrice" class="text-danger"></span>
-            </div>
+                        <div class="mb-3">
+                            <label asp-for="CarModelId" class="form-label">Modèle</label>
+                            <select asp-for="CarModelId" class="form-select" id="modelSelect" disabled>
+                                <option value="">-- Sélectionnez d'abord une marque --</option>
+                            </select>
+                            <span asp-validation-for="CarModelId" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="Description" class="control-label">Description</label>
-                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+                        <div class="mb-3">
+                            <label asp-for="Image" class="form-label">Image</label>
+                            <input asp-for="Image" class="form-control" type="file" accept="image/*" />
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label class="control-label">Image</label>
-                <input type="file" name="ImageFile" class="form-control-file" />
-            </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="Créer" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Annuler</a>
-            </div>
-        </form>
+                <div class="text-end">
+                    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
     <script>
-        $(document).ready(function () {
-            $('#makeSelect').change(function () {
+
+        $(document).ready(function() {
+            // Gestion dynamique des modèles en fonction de la marque
+            $('#makeSelect').change(function() {
                 var makeId = $(this).val();
-
-                if (makeId) {
-                    $('#modelSelect').prop('disabled', false);
-
-                    $.getJSON('/api/CarMakes/' + makeId + '/models', function (data) {
-                        $('#modelSelect').empty();
-                        $('#modelSelect').append('<option value="">-- Sélectionner un modèle --</option>');
-
-                        $.each(data, function (i, item) {
-                            $('#modelSelect').append('<option value="' + item.name + '">' + item.name + '</option>');
-                        });
-                    });
-                } else {
+                if (makeId === '') {
                     $('#modelSelect').prop('disabled', true);
-                    $('#modelSelect').empty();
-                    $('#modelSelect').append('<option value="">-- Sélectionner un modèle --</option>');
+                    $('#modelSelect').html('<option value="">-- Sélectionnez d\'abord une marque --</option>');
+                    return;
                 }
+
+                $.ajax({
+                    url: '/api/get-models-by-make',
+                    type: 'GET',
+                    data: { makeId: makeId },
+                    success: function(models) {
+                        var options = '<option value="">-- Sélectionnez un modèle --</option>';
+                        $.each(models, function(i, model) {
+                            options += '<option value="' + model.id + '">' + model.name + '</option>';
+                        });
+                        $('#modelSelect').html(options);
+                        $('#modelSelect').prop('disabled', false);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erreur lors du chargement des modèles:", error);
+                        $('#modelSelect').prop('disabled', true);
+                        $('#modelSelect').html('<option value="">-- Erreur de chargement --</option>');
+                    }
+                });
             });
         });
     </script>

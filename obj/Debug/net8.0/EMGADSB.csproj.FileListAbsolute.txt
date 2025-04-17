@@ -284,10 +284,11 @@ C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\static
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.EMGADSB.props
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.EMGADSB.props
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\EMGADSB.csproj.Up2Date
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\EMGADSB.dll
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\refint\EMGADSB.dll
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\EMGADSB.pdb
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\EMGADSB.genruntimeconfig.cache
 C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\ref\EMGADSB.dll
+C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\EMGADSB.sourcelink.json
+C:\Users\Administrateur\source\repos\EMG\EMGADSB\EMGADSB\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

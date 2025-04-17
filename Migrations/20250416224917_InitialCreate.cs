@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace EMGADSB.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -84,8 +82,7 @@ namespace EMGADSB.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -105,8 +102,7 @@ namespace EMGADSB.Migrations
                         name: "FK_AspNetUserClaims_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -125,8 +121,7 @@ namespace EMGADSB.Migrations
                         name: "FK_AspNetUserLogins_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -143,14 +138,12 @@ namespace EMGADSB.Migrations
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -169,8 +162,7 @@ namespace EMGADSB.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -189,8 +181,7 @@ namespace EMGADSB.Migrations
                         name: "FK_CarModels_CarMakes_CarMakeId",
                         column: x => x.CarMakeId,
                         principalTable: "CarMakes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -199,80 +190,32 @@ namespace EMGADSB.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Make = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
-                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SellingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsAvailable = table.Column<bool>(type: "bit", nullable: false),
                     IsSold = table.Column<bool>(type: "bit", nullable: false),
                     DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateSold = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CarMakeId = table.Column<int>(type: "int", nullable: false)
+                    CarMakeId = table.Column<int>(type: "int", nullable: false),
+                    CarModelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cars", x => x.Id);
+                    table.CheckConstraint("CK_Car_Year", "Year >= 2018");
                     table.ForeignKey(
                         name: "FK_Cars_CarMakes_CarMakeId",
                         column: x => x.CarMakeId,
                         principalTable: "CarMakes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "1", null, "Admin", "ADMIN" },
-                    { "2", null, "User", "USER" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "6401cc81-5449-4f7e-80bd-99d0b65b698a", "admin@emgoasb.com", true, "Admin", "Principal", false, null, "ADMIN@EMGOASB.COM", "ADMIN@EMGOASB.COM", "AQAAAAIAAYagAAAAECHUzJV7VExAPqWBsmgVvk9g8I0n33rUWed8+w3JnosTdzwOERBLsiokdAvqv5RVEQ==", null, false, "3320cadd-5de6-4291-a3f5-9e44524f0636", false, "admin@emgoasb.com" });
-
-            migrationBuilder.InsertData(
-                table: "CarMakes",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Toyota" },
-                    { 2, "Honda" },
-                    { 3, "Ford" },
-                    { 4, "BMW" },
-                    { 5, "Mercedes-Benz" },
-                    { 6, "Audi" },
-                    { 7, "Volkswagen" },
-                    { 8, "Hyundai" },
-                    { 9, "Kia" },
-                    { 10, "Nissan" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "1", "1" });
-
-            migrationBuilder.InsertData(
-                table: "CarModels",
-                columns: new[] { "Id", "CarMakeId", "Name" },
-                values: new object[,]
-                {
-                    { 1, 1, "Corolla" },
-                    { 2, 1, "Camry" },
-                    { 3, 1, "RAV4" },
-                    { 4, 2, "Civic" },
-                    { 5, 2, "Accord" },
-                    { 6, 2, "CR-V" },
-                    { 7, 3, "Focus" },
-                    { 8, 3, "Mustang" },
-                    { 9, 3, "F-150" }
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Cars_CarModels_CarModelId",
+                        column: x => x.CarModelId,
+                        principalTable: "CarModels",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -323,6 +266,11 @@ namespace EMGADSB.Migrations
                 name: "IX_Cars_CarMakeId",
                 table: "Cars",
                 column: "CarMakeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cars_CarModelId",
+                table: "Cars",
+                column: "CarModelId");
         }
 
         /// <inheritdoc />
@@ -344,9 +292,6 @@ namespace EMGADSB.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CarModels");
-
-            migrationBuilder.DropTable(
                 name: "Cars");
 
             migrationBuilder.DropTable(
@@ -354,6 +299,9 @@ namespace EMGADSB.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "CarModels");
 
             migrationBuilder.DropTable(
                 name: "CarMakes");

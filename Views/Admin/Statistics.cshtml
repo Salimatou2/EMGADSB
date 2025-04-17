@@ -1,0 +1,284 @@
+﻿@model EMGADSB.ViewModels.StatisticsViewModel
+@{
+    ViewData["Title"] = "Statistiques";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Statistiques</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index">Tableau de bord</a></li>
+        <li class="breadcrumb-item active">Statistiques</li>
+    </ol>
+
+    <!-- Statistiques globales -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <h2>@Model.TotalCars</h2>
+                    <div>Voitures totales</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <h2>@Model.AvailableCars</h2>
+                    <div>Voitures disponibles</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">
+                    <h2>@Model.SoldCars</h2>
+                    <div>Voitures vendues</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body">
+                    <h2>@Model.TotalRevenue.ToString("C0")</h2>
+                    <div>Revenu total</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Graphique des ventes mensuelles -->
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar me-1"></i>
+                    Ventes mensuelles
+                </div>
+                <div class="card-body">
+                    <canvas id="monthlySalesChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Graphique des revenus mensuels -->
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-line me-1"></i>
+                    Revenus mensuels
+                </div>
+                <div class="card-body">
+                    <canvas id="monthlyRevenueChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Ventes par marque -->
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie me-1"></i>
+                    Ventes par marque
+                </div>
+                <div class="card-body">
+                    <canvas id="salesByMakeChart" width="100%" height="50"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top 5 des modèles les plus vendus -->
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie me-1"></i>
+                    Top 5 des modèles les plus vendus
+                </div>
+                <div class="card-body">
+                    <canvas id="topModelsChart" width="100%" height="50"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques additionnelles -->
+    <div class="row">
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-light mb-4">
+                <div class="card-header">Temps moyen de vente</div>
+                <div class="card-body">
+                    <h2>@Model.AverageDaysToSell.ToString("F1") jours</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6">
+            <div class="card bg-light mb-4">
+                <div class="card-header">Prix moyen de vente</div>
+                <div class="card-body">
+                    <h2>@Model.AveragePrice.ToString("C0")</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dernières ventes -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Dernières ventes
+        </div>
+        <div class="card-body">
+            <table id="recentSalesTable" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Marque</th>
+                        <th>Modèle</th>
+                        <th>Année</th>
+                        <th>Prix</th>
+                        <th>Date de vente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var car in Model.RecentlySoldCars)
+                    {
+                        <tr>
+                            <td>@car.Id</td>
+                            <td>@car.CarMake.Name</td>
+                            <td>@car.CarModel.Name</td>
+                            <td>@car.Year</td>
+                            <td>@car.Price.ToString("C0")</td>
+                            <td>@car.DateSold?.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        // Données pour les graphiques
+        const monthlySalesData = {
+            labels: @Html.Raw(Json.Serialize(Model.MonthlySales.Keys)),
+            datasets: [{
+                label: 'Nombre de ventes',
+                backgroundColor: 'rgba(2, 117, 216, 0.2)',
+                borderColor: 'rgba(2, 117, 216, 1)',
+                borderWidth: 1,
+                data: @Html.Raw(Json.Serialize(Model.MonthlySales.Values)),
+            }]
+        };
+
+        const monthlyRevenueData = {
+            labels: @Html.Raw(Json.Serialize(Model.MonthlyRevenue.Keys)),
+            datasets: [{
+                label: 'Revenus (€)',
+                backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                borderColor: 'rgba(40, 167, 69, 1)',
+                borderWidth: 1,
+                data: @Html.Raw(Json.Serialize(Model.MonthlyRevenue.Values)),
+            }]
+        };
+
+        const salesByMakeData = {
+            labels: @Html.Raw(Json.Serialize(Model.SalesByMake.Keys)),
+            datasets: [{
+                label: 'Ventes par marque',
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(199, 199, 199, 0.6)'
+                ],
+                data: @Html.Raw(Json.Serialize(Model.SalesByMake.Values)),
+            }]
+        };
+
+        const topModelsData = {
+            labels: @Html.Raw(Json.Serialize(Model.TopSellingModels.Keys)),
+            datasets: [{
+                label: 'Ventes par modèle',
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)'
+                ],
+                data: @Html.Raw(Json.Serialize(Model.TopSellingModels.Values)),
+            }]
+        };
+
+        // Configuration des graphiques
+        window.addEventListener('load', function() {
+            // Graphique des ventes mensuelles
+            const monthlySalesChart = new Chart(
+                document.getElementById('monthlySalesChart'),
+                {
+                    type: 'bar',
+                    data: monthlySalesData,
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Graphique des revenus mensuels
+            const monthlyRevenueChart = new Chart(
+                document.getElementById('monthlyRevenueChart'),
+                {
+                    type: 'line',
+                    data: monthlyRevenueData,
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                }
+            );
+
+            // Graphique des ventes par marque
+            const salesByMakeChart = new Chart(
+                document.getElementById('salesByMakeChart'),
+                {
+                    type: 'pie',
+                    data: salesByMakeData,
+                    options: {
+                        responsive: true
+                    }
+                }
+            );
+
+            // Graphique des top modèles
+            const topModelsChart = new Chart(
+                document.getElementById('topModelsChart'),
+                {
+                    type: 'doughnut',
+                    data: topModelsData,
+                    options: {
+                        responsive: true
+                    }
+                }
+            );
+        });
+    </script>
+}

@@ -1,0 +1,39 @@
+﻿using EMGADSB.Models;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace EMGADSB.ViewModels
+{
+    public class CreateCarViewModel
+    {
+        [Required(ErrorMessage = "Le nom est requis")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "L'année est requise")]
+        [Range(2018, 2100, ErrorMessage = "L'année doit être supérieure ou égale à 2018")]
+        public int Year { get; set; }
+
+        [Required(ErrorMessage = "Le prix est requis")]
+        [Range(0, double.MaxValue, ErrorMessage = "Le prix doit être positif")]
+        public decimal Price { get; set; }
+
+        [Required(ErrorMessage = "La description est requise")]
+        public string Description { get; set; }
+
+        [Display(Name = "Image de la voiture")]
+        public IFormFile Image { get; set; }
+
+        [Required(ErrorMessage = "La marque est requise")]
+        [Display(Name = "Marque")]
+        public int CarMakeId { get; set; }
+
+        [Required(ErrorMessage = "Le modèle est requis")]
+        [Display(Name = "Modèle")]
+        public int CarModelId { get; set; }
+
+        public List<CarMake> AvailableMakes { get; set; } = new List<CarMake>();
+        public List<CarModel> AvailableModels { get; set; } = new List<CarModel>();
+    }
+}

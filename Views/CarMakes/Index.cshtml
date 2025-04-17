@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CarMake>
+
+@{
+    ViewData["Title"] = "Marques de voitures";
+}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Marques de voitures</h1>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus me-2"></i>Ajouter une marque
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            @if (Model.Any())
+            {
+                <table class="table table-striped table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Nombre de modèles</th>
+                            <th>Nombre de voitures</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var make in Model)
+                        {
+                            <tr>
+                                <td>@make.Id</td>
+                                <td>@make.Name</td>
+                                <td>@(make.CarModels?.Count() ?? 0)</td>
+                                <td>@(make.Cars?.Count() ?? 0)</td>
+                                <td class="text-end">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Edit" asp-route-id="@make.Id" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-controller="CarModels" asp-action="Index" asp-route-makeId="@make.Id" class="btn btn-sm btn-outline-info">
+                                            <i class="fas fa-list"></i> Modèles
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@make.Id" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Aucune marque de voiture n'a été ajoutée. Cliquez sur "Ajouter une marque" pour commencer.
+                </div>
+            }
+        </div>
+    </div>
+</div>

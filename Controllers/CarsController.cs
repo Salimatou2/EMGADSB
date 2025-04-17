@@ -8,34 +8,65 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
-using EMGADSB.Data;
-using EMGADSB.Models;
+using EMGADSB.ViewModels;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EMGADSB.Controllers
 {
+    [Authorize]
     public class CarsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly IWebHostEnvironment _environment;
 
-        public CarsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+        public CarsController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
-            _hostEnvironment = hostEnvironment;
+            _environment = environment;
         }
 
         // GET: Cars
-        public async Task<IActionResult> Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index(string searchString, int? makeId, int? modelId)
         {
-            var cars = await _context.Cars
-                .Include(c => c.CarMakeNavigation)
-                .ToListAsync();
+            var viewModel = new CarSearchViewModel
+            {
+                SearchString = searchString,
+                MakeId = makeId,
+                ModelId = modelId,
+                Makes = await _context.CarMakes.ToListAsync(),
+                Models = await _context.CarModels.ToListAsync()
+            };
 
-            return View(cars);
+            var cars = _context.Cars
+                .Include(c => c.CarMake)
+                .Include(c => c.CarModel)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                cars = cars.Where(c => c.Name.Contains(searchString) ||
+                                       c.Description.Contains(searchString));
+            }
+
+            if (makeId.HasValue)
+            {
+                cars = cars.Where(c => c.CarMakeId == makeId.Value);
+            }
+
+            if (modelId.HasValue)
+            {
+                cars = cars.Where(c => c.CarModelId == modelId.Value);
+            }
+
+            viewModel.Cars = await cars.ToListAsync();
+
+            return View(viewModel);
         }
 
         // GET: Cars/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,7 +75,8 @@ namespace EMGADSB.Controllers
             }
 
             var car = await _context.Cars
-                .Include(c => c.CarMakeNavigation)
+                .Include(c => c.CarMake)
+                .Include(c => c.CarModel)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (car == null)
@@ -56,64 +88,85 @@ namespace EMGADSB.Controllers
         }
 
         // GET: Cars/Create
-        //[Authorize(Roles = "Admin")]
-        public IActionResult Create()
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create()
         {
-            ViewBag.CarMakes = new SelectList(_context.CarMakes, "Id", "Name");
-            return View();
+            var viewModel = new CreateCarViewModel
+            {
+                AvailableMakes = await _context.CarMakes.ToListAsync(),
+                AvailableModels = await _context.CarModels.ToListAsync()
+            };
+            return View(viewModel);
         }
 
         // POST: Cars/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("CarMakeId,Model,Year,PurchasePrice,SellingPrice,Description")] Car car, IFormFile ImageFile)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create(CreateCarViewModel viewModel)
         {
+            // Vérification manuelle si CarModelId est valide pour le CarMakeId sélectionné
+            if (viewModel.CarMakeId > 0 && viewModel.CarModelId > 0)
+            {
+                var modelBelongsToMake = await _context.CarModels
+                    .AnyAsync(m => m.Id == viewModel.CarModelId && m.CarMakeId == viewModel.CarMakeId);
+
+                if (!modelBelongsToMake)
+                {
+                    ModelState.AddModelError("CarModelId", "Le modèle sélectionné n'appartient pas à la marque choisie.");
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                // Vérifie que l'année est >= 2018
-                if (car.Year < 2018)
+                var car = new Car
                 {
-                    ModelState.AddModelError("Year", "L'année doit être 2018 ou plus récente.");
-                    ViewBag.CarMakes = new SelectList(_context.CarMakes, "Id", "Name", car.CarMakeId);
-                    return View(car);
-                }
+                    Name = viewModel.Name,
+                    Year = viewModel.Year,
+                    Price = viewModel.Price,
+                    Description = viewModel.Description,
+                    CarMakeId = viewModel.CarMakeId,
+                    CarModelId = viewModel.CarModelId,
+                    IsAvailable = true,
+                    IsSold = false,
+                    DateAdded = DateTime.Now
+                };
 
-                // Traitement de l'image si elle existe
-                if (ImageFile != null && ImageFile.Length > 0)
+                if (viewModel.Image != null && viewModel.Image.Length > 0)
                 {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                    string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "images/cars");
-
+                    // Création du dossier s'il n'existe pas
+                    string uploadsFolder = Path.Combine(_environment.WebRootPath, "images/cars");
                     if (!Directory.Exists(uploadsFolder))
                     {
                         Directory.CreateDirectory(uploadsFolder);
                     }
-
-                    string filePath = Path.Combine(uploadsFolder, fileName);
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.Image.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                        await ImageFile.CopyToAsync(fileStream);
+                        await viewModel.Image.CopyToAsync(fileStream);
                     }
-
-                    car.ImageUrl = "/images/cars/" + fileName;
+                    car.ImageUrl = "/images/cars/" + uniqueFileName;
                 }
-
-                car.DateAdded = DateTime.Now;
-                car.IsAvailable = true;
-                car.IsSold = false;
+                else
+                {
+                    // Image par défaut si aucune n'est fournie
+                    car.ImageUrl = "/images/cars/default-car.jpg";
+                }
 
                 _context.Add(car);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.CarMakes = new SelectList(_context.CarMakes, "Id", "Name", car.CarMakeId);
-            return View(car);
+            // Si on arrive ici, c'est que la validation a échoué, donc on réinitialise les listes
+            viewModel.AvailableMakes = await _context.CarMakes.ToListAsync();
+            viewModel.AvailableModels = await _context.CarModels.ToListAsync();
+            return View(viewModel);
         }
 
         // GET: Cars/Edit/5
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -121,76 +174,128 @@ namespace EMGADSB.Controllers
                 return NotFound();
             }
 
-            var car = await _context.Cars.FindAsync(id);
+            var car = await _context.Cars
+                .Include(c => c.CarMake)
+                .Include(c => c.CarModel)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (car == null)
             {
                 return NotFound();
             }
 
-            ViewBag.CarMakes = new SelectList(_context.CarMakes, "Id", "Name", car.CarMakeId);
-            return View(car);
+            var viewModel = new CarEditViewModel
+            {
+                Id = car.Id,
+                Name = car.Name,
+                Year = car.Year,
+                Price = car.Price,
+                Description = car.Description,
+                CurrentImageUrl = car.ImageUrl,
+                CarMakeId = car.CarMakeId,
+                CarModelId = car.CarModelId,
+                IsAvailable = car.IsAvailable,
+                IsSold = car.IsSold,
+                AvailableMakes = await _context.CarMakes.ToListAsync(),
+                AvailableModels = await _context.CarModels.ToListAsync()
+            };
+
+            return View(viewModel);
         }
 
         // POST: Cars/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CarMakeId,Model,Year,PurchasePrice,SellingPrice,Description,IsAvailable,IsSold,ImageUrl")] Car car, IFormFile ImageFile)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(int id, CarEditViewModel viewModel)
         {
-            if (id != car.Id)
+            if (id != viewModel.Id)
             {
                 return NotFound();
+            }
+
+            // Supprimons toute validation pour l'image si on conserve l'image actuelle
+            if (viewModel.KeepCurrentImage)
+            {
+                ModelState.Remove("NewImage");
+                ModelState.Remove("Image"); // Au cas où le nom du champ dans la vue serait encore "Image"
+            }
+
+            // Vérification manuelle si CarModelId est valide pour le CarMakeId sélectionné
+            if (viewModel.CarMakeId > 0 && viewModel.CarModelId > 0)
+            {
+                var modelBelongsToMake = await _context.CarModels
+                    .AnyAsync(m => m.Id == viewModel.CarModelId && m.CarMakeId == viewModel.CarMakeId);
+
+                if (!modelBelongsToMake)
+                {
+                    ModelState.AddModelError("CarModelId", "Le modèle sélectionné n'appartient pas à la marque choisie.");
+                }
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var originalCar = await _context.Cars.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
-                    car.DateAdded = originalCar.DateAdded;
-                    car.DateSold = originalCar.DateSold;
-
-                    if (car.Year < 2018)
+                    var car = await _context.Cars.FindAsync(id);
+                    if (car == null)
                     {
-                        ModelState.AddModelError("Year", "L'année doit être 2018 ou plus récente.");
-                        ViewBag.CarMakes = new SelectList(_context.CarMakes, "Id", "Name", car.CarMakeId);
-                        return View(car);
+                        return NotFound();
                     }
 
-                    if (ImageFile != null && ImageFile.Length > 0)
+                    car.Name = viewModel.Name;
+                    car.Year = viewModel.Year;
+                    car.Price = viewModel.Price;
+                    car.Description = viewModel.Description;
+                    car.CarMakeId = viewModel.CarMakeId ?? 0;
+                    car.CarModelId = viewModel.CarModelId ?? 0;
+                    car.IsAvailable = viewModel.IsAvailable;
+                    car.IsSold = viewModel.IsSold;
+
+                    // Traitement de l'image
+                    if (viewModel.NewImage != null && viewModel.NewImage.Length > 0)
                     {
-                        if (!string.IsNullOrEmpty(car.ImageUrl))
+                        // Supprimer l'ancienne image si nécessaire
+                        if (!string.IsNullOrEmpty(car.ImageUrl) && !car.ImageUrl.EndsWith("default-car.jpg"))
                         {
-                            var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, car.ImageUrl.TrimStart('/'));
+                            var oldImagePath = Path.Combine(_environment.WebRootPath, car.ImageUrl.TrimStart('/'));
                             if (System.IO.File.Exists(oldImagePath))
                             {
                                 System.IO.File.Delete(oldImagePath);
                             }
                         }
 
-                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                        string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "images/cars");
-
+                        // Sauvegarder la nouvelle image
+                        string uploadsFolder = Path.Combine(_environment.WebRootPath, "images/cars");
                         if (!Directory.Exists(uploadsFolder))
                         {
                             Directory.CreateDirectory(uploadsFolder);
                         }
 
-                        string filePath = Path.Combine(uploadsFolder, fileName);
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.NewImage.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
-                            await ImageFile.CopyToAsync(fileStream);
+                            await viewModel.NewImage.CopyToAsync(fileStream);
                         }
 
-                        car.ImageUrl = "/images/cars/" + fileName;
+                        car.ImageUrl = "/images/cars/" + uniqueFileName;
                     }
+                    else if (!viewModel.KeepCurrentImage)
+                    {
+                        // Si l'utilisateur ne veut pas garder l'image actuelle
+                        car.ImageUrl = "/images/cars/default-car.jpg";
+                    }
+                    // Sinon, on garde l'image actuelle
 
                     _context.Update(car);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarExists(car.Id))
+                    if (!CarExists(viewModel.Id))
                     {
                         return NotFound();
                     }
@@ -199,16 +304,17 @@ namespace EMGADSB.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.CarMakes = new SelectList(_context.CarMakes, "Id", "Name", car.CarMakeId);
-            return View(car);
+            // La validation a échoué, on recharge les données pour le formulaire
+            viewModel.AvailableMakes = await _context.CarMakes.ToListAsync();
+            viewModel.AvailableModels = await _context.CarModels.ToListAsync();
+            return View(viewModel);
         }
 
-        // GET: Cars/MarkAsSold/5
-        //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> MarkAsSold(int? id)
+        // GET: Cars/Delete/5
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -216,7 +322,8 @@ namespace EMGADSB.Controllers
             }
 
             var car = await _context.Cars
-                .Include(c => c.CarMakeNavigation)
+                .Include(c => c.CarMake)
+                .Include(c => c.CarModel)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (car == null)
@@ -227,24 +334,125 @@ namespace EMGADSB.Controllers
             return View(car);
         }
 
-        // POST: Cars/MarkAsSold/5
-        [HttpPost, ActionName("MarkAsSold")]
+        // POST: Cars/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
-        public async Task<IActionResult> MarkAsSoldConfirmed(int id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var car = await _context.Cars.FindAsync(id);
-            if (car != null)
-            {
-                car.IsSold = true;
-                car.IsAvailable = false;
-                car.DateSold = DateTime.Now;
 
-                _context.Update(car);
-                await _context.SaveChangesAsync();
+            if (car == null)
+            {
+                return NotFound();
             }
 
+            // Supprimer l'image associée si elle existe
+            if (!string.IsNullOrEmpty(car.ImageUrl) && !car.ImageUrl.EndsWith("default-car.jpg"))
+            {
+                var imagePath = Path.Combine(_environment.WebRootPath, car.ImageUrl.TrimStart('/'));
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
+            _context.Cars.Remove(car);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Cars/MarkAsSold/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> MarkAsSold(int id)
+        {
+            var car = await _context.Cars.FindAsync(id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            car.IsSold = true;
+            car.IsAvailable = false;
+            car.DateSold = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
+
+        // POST: Cars/MarkAsUnavailable/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> MarkAsUnavailable(int id)
+        {
+            var car = await _context.Cars.FindAsync(id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            car.IsAvailable = false;
+            car.IsSold = false;
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Cars/MarkAsAvailable/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> MarkAsAvailable(int id)
+        {
+            var car = await _context.Cars.FindAsync(id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            car.IsAvailable = true;
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Cars/ToggleAvailability/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ToggleAvailability(int id)
+        {
+            var car = await _context.Cars.FindAsync(id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+
+            car.IsAvailable = !car.IsAvailable;
+
+            // Si marqué comme non disponible, il ne peut pas être vendu
+            if (!car.IsAvailable)
+            {
+                car.IsSold = false;
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
+
+        // GET: Cars/GetModelsByMake/5
+        [HttpGet]
+        public async Task<JsonResult> GetModelsByMake(int makeId)
+        {
+            var models = await _context.CarModels
+                .Where(m => m.CarMakeId == makeId)
+                .Select(m => new { id = m.Id, name = m.Name })
+                .ToListAsync();
+
+            return Json(models);
         }
 
         private bool CarExists(int id)

@@ -1,196 +1,302 @@
-﻿@model IEnumerable<Car>
-
+﻿@model EMGADSB.ViewModels.CarSearchViewModel
 @{
-    ViewData["Title"] = "Nos voitures";
+    ViewData["Title"] = "Inventaire | EMG Voitures";
 }
 
-<div class="container my-4">
-    <h1>@ViewData["Title"]</h1>
+<!-- Ajout des styles directement dans la page au lieu d'utiliser une section -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-    <div class="row mb-4">
-        <div class="col-md-6">
-            @* Avant : réservé aux Admins uniquement *@
-            <a asp-action="Create" class="btn btn-primary">Ajouter une nouvelle voiture</a>
-        </div>
-        <div class="col-md-6">
-            <div class="input-group">
-                <input type="text" id="searchInput" class="form-control" placeholder="Rechercher...">
-                <button class="btn btn-outline-secondary" type="button" id="searchButton">
-                    <i class="bi bi-search"></i>
-                </button>
+<style>
+    .hover-shadow {
+        transition: all 0.3s ease;
+    }
+
+        .hover-shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+
+    .img-hover:hover {
+        transform: scale(1.05);
+    }
+
+    /* Animation pour les badges */
+    .badge {
+        transition: all 0.3s ease;
+    }
+
+        .badge:hover {
+            transform: scale(1.05);
+        }
+
+    /* Style amélioré pour les boutons */
+    .btn {
+        transition: all 0.3s ease;
+        border-radius: 6px;
+    }
+
+    /* Style pour les formulaires flottants */
+    .form-floating > .form-control,
+    .form-floating > .form-select {
+        border-radius: 8px;
+        height: calc(3.5rem + 2px);
+        line-height: 1.25;
+    }
+
+    /* Mise en évidence des contrôles de formulaire au focus */
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+</style>
+
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <!-- En-tête avec animation subtile -->
+        <div class="row mb-5 animate__animated animate__fadeIn">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold text-primary mb-2">Notre Inventaire</h1>
+                <p class="lead text-muted">Découvrez notre sélection de véhicules premium et trouvez la voiture de vos rêves.</p>
             </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-lg-4 d-flex justify-content-lg-end align-items-center gap-2">
+                    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-primary btn-lg">
+                        <i class="bi bi-gear me-2"></i>Administration
+                    </a>
+                    <a asp-action="Create" class="btn btn-primary btn-lg">
+                        <i class="bi bi-plus-circle me-2"></i>Ajouter
+                    </a>
+                </div>
+            }
         </div>
-    </div>
 
-    <div class="row mb-4">
-        <div class="col-md-3 mb-3">
-            <label for="filterMake" class="form-label">Marque</label>
-            <select id="filterMake" class="form-select">
-                <option value="">Toutes les marques</option>
-                @foreach (var make in ViewBag.CarMakes ?? new List<SelectListItem>())
+        <!-- Fil d'Ariane -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Inventaire</li>
+                @if (User.IsInRole("Admin"))
                 {
-                    <option value="@make.Value">@make.Text</option>
+                    <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index" class="text-decoration-none">Administration</a></li>
                 }
-            </select>
-        </div>
+            </ol>
+        </nav>
 
-        <div class="col-md-3 mb-3">
-            <label for="filterYear" class="form-label">Année minimum</label>
-            <select id="filterYear" class="form-select">
-                <option value="">Toutes les années</option>
-                @for (int year = DateTime.Now.Year; year >= 2018; year--)
-                {
-                    <option value="@year">@year</option>
-                }
-            </select>
-        </div>
-
-        <div class="col-md-3 mb-3">
-            <label for="filterPrice" class="form-label">Prix maximum</label>
-            <select id="filterPrice" class="form-select">
-                <option value="">Tous les prix</option>
-                <option value="5000000">5 000 000 FCFA</option>
-                <option value="10000000">10 000 000 FCFA</option>
-                <option value="15000000">15 000 000 FCFA</option>
-                <option value="20000000">20 000 000 FCFA</option>
-                <option value="25000000">25 000 000 FCFA</option>
-            </select>
-        </div>
-
-        <div class="col-md-3 mb-3">
-            <label for="filterAvailable" class="form-label">Disponibilité</label>
-            <select id="filterAvailable" class="form-select">
-                <option value="">Toutes</option>
-                <option value="available" selected>Disponibles seulement</option>
-                <option value="sold">Vendues seulement</option>
-            </select>
-        </div>
-    </div>
-
-    <div id="carsContainer" class="row">
-        @foreach (var car in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <img src="@(string.IsNullOrEmpty(car.ImageUrl) ? "/images/default-car.jpg" : car.ImageUrl)"
-                         class="card-img-top"
-                         alt="@car.CarMakeNavigation?.Name @car.Model"
-                         style="height: 200px; object-fit: cover;" />
-
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            @car.CarMakeNavigation?.Name @car.Model
-                        </h5>
-
-                        <p class="card-text">
-                            <strong>Année:</strong> @car.Year<br />
-                            <strong>Prix:</strong> @car.SellingPrice.ToString("N0") FCFA
-                        </p>
-
-                        @if (car.IsSold)
-                        {
-                            <div class="badge bg-danger text-white mb-2">Vendue</div>
-                        }
-                        else if (!car.IsAvailable)
-                        {
-                            <div class="badge bg-warning text-dark mb-2">Non disponible</div>
-                        }
-                        else
-                        {
-                            <div class="badge bg-success text-white mb-2">Disponible</div>
-                        }
-                    </div>
-
-                    <div class="card-footer bg-transparent">
-                        <div class="d-grid gap-2">
-                            <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-primary">Détails</a>
-
-                            @* Avant : réservé aux Admins uniquement *@
-                            <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-secondary">Modifier</a>
-
-                            @* Avant : réservé aux Admins uniquement *@
-                            @if (!car.IsSold)
-                            {
-                                <a asp-action="MarkAsSold" asp-route-id="@car.Id" class="btn btn-success">
-                                    Marquer comme vendue
-                                </a>
-                            }
+        <!-- Formulaire de recherche stylisé -->
+        <div class="card mb-5 border-0 shadow-sm rounded-3 overflow-hidden">
+            <div class="card-header bg-white p-4 border-0">
+                <h5 class="m-0"><i class="bi bi-search me-2"></i>Filtrer les résultats</h5>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Index" method="get">
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <div class="form-floating">
+                                <input asp-for="SearchString" class="form-control" id="searchString" placeholder="Rechercher">
+                                <label for="searchString">Rechercher par nom ou description</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating">
+                                <select asp-for="MakeId" class="form-select" id="makeSelect"
+                                        asp-items="@(new SelectList(Model.Makes, "Id", "Name"))">
+                                    <option value="">Toutes</option>
+                                </select>
+                                <label for="makeSelect">Marque</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-floating">
+                                <select asp-for="ModelId" class="form-select" id="modelSelect"
+                                        asp-items="@(new SelectList(Model.Models, "Id", "Name"))">
+                                    <option value="">Tous</option>
+                                </select>
+                                <label for="modelSelect">Modèle</label>
+                            </div>
+                        </div>
+                        <div class="col-md-1 d-flex align-items-center">
+                            <button type="submit" class="btn btn-primary w-100 h-75">
+                                <i class="bi bi-search"></i>
+                            </button>
                         </div>
                     </div>
+                </form>
+            </div>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="d-flex justify-content-end mb-4">
+                <div class="btn-group">
+                    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="bi bi-speedometer2 me-2"></i>Tableau de bord
+                    </a>
+                    <a asp-controller="Admin" asp-action="ManageMakesModels" class="btn btn-outline-primary">
+                        <i class="bi bi-car-front me-2"></i>Gérer marques/modèles
+                    </a>
                 </div>
             </div>
         }
-    </div>
 
-    <div id="noCarsMessage" class="my-5 text-center" style="display: none;">
-        <h3>Aucune voiture ne correspond à ces critères.</h3>
+        <!-- Résultats avec animation au chargement -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var car in Model.Cars)
+            {
+                <div class="col animate__animated animate__fadeInUp">
+                    <div class="card h-100 border-0 shadow-sm hover-shadow rounded-3 overflow-hidden position-relative">
+                        <!-- Badge de statut en haut à droite -->
+                        @if (!car.IsAvailable)
+                        {
+                            <div class="position-absolute top-0 end-0 m-3 z-1">
+                                <span class="badge bg-danger rounded-pill px-3 py-2 shadow-sm">Non disponible</span>
+                            </div>
+                        }
+                        else if (car.IsSold)
+                        {
+                            <div class="position-absolute top-0 end-0 m-3 z-1">
+                                <span class="badge bg-warning rounded-pill px-3 py-2 shadow-sm">Vendu</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="position-absolute top-0 end-0 m-3 z-1">
+                                <span class="badge bg-success rounded-pill px-3 py-2 shadow-sm">Disponible</span>
+                            </div>
+                        }
+
+                        <!-- Image avec effet de zoom au survol -->
+                        <div class="card-img-container overflow-hidden" style="height: 240px;">
+                            @if (!string.IsNullOrEmpty(car.ImageUrl))
+                            {
+                                <img src="@car.ImageUrl" class="card-img-top img-hover" alt="@car.Name"
+                                     style="height: 100%; width: 100%; object-fit: cover; transition: transform 0.5s ease;">
+                            }
+                            else
+                            {
+                                <img src="/images/cars/default.jpg" class="card-img-top img-hover" alt="@car.Name"
+                                     style="height: 100%; width: 100%; object-fit: cover; transition: transform 0.5s ease;">
+                            }
+                        </div>
+
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title fw-bold mb-0">@car.Name</h5>
+                                <span class="badge bg-primary rounded-pill">@car.Year</span>
+                            </div>
+                            <h6 class="card-subtitle mb-3 text-muted">@car.CarMake.Name @car.CarModel.Name</h6>
+
+                            <p class="card-text text-muted mb-3" style="height: 4.5rem; overflow: hidden;">
+                                @car.Description.Substring(0, Math.Min(150, car.Description.Length))...
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold text-primary">@car.Price.ToString("C")</span>
+                                <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-outline-primary">
+                                    Détails <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="card-footer bg-white p-3 border-0">
+                                <div class="d-flex flex-wrap gap-2 justify-content-between">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-pencil me-1"></i>Modifier
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash me-1"></i>Supprimer
+                                        </a>
+                                    </div>
+
+                                    <div class="btn-group" role="group">
+                                        @if (!car.IsSold)
+                                        {
+                                            <form asp-action="MarkAsSold" asp-route-id="@car.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-warning">
+                                                    <i class="bi bi-tag me-1"></i>Marquer vendu
+                                                </button>
+                                            </form>
+                                        }
+
+                                        @if (car.IsAvailable)
+                                        {
+                                            <form asp-action="MarkAsUnavailable" asp-route-id="@car.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    <i class="bi bi-x-circle me-1"></i>Indisponible
+                                                </button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form asp-action="MarkAsAvailable" asp-route-id="@car.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-sm btn-outline-success">
+                                                    <i class="bi bi-check-circle me-1"></i>Disponible
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (!Model.Cars.Any())
+        {
+            <div class="alert alert-info mt-5 p-4 text-center rounded-3 shadow-sm" role="alert">
+                <i class="bi bi-info-circle display-6 d-block mb-3"></i>
+                <h4>Aucun résultat trouvé</h4>
+                <p>Aucune voiture ne correspond à vos critères de recherche. Veuillez modifier vos filtres.</p>
+                <a asp-action="Index" class="btn btn-outline-primary mt-2">Voir toutes les voitures</a>
+            </div>
+        }
     </div>
 </div>
 
 @section Scripts {
     <script>
-        $(document).ready(function () {
-            function filterCars() {
-                var makeId = $('#filterMake').val();
-                var year = $('#filterYear').val();
-                var price = $('#filterPrice').val();
-                var availability = $('#filterAvailable').val();
-                var searchTerm = $('#searchInput').val().toLowerCase();
-
-                $('.col-md-4').each(function () {
-                    var $card = $(this);
-                    var cardTitle = $card.find('.card-title').text().toLowerCase();
-                    var cardYear = $card.find('.card-text').text().match(/Année: (\d+)/);
-                    var cardPrice = $card.find('.card-text').text().match(/Prix: ([\d\s]+) FCFA/);
-                    var isSold = $card.find('.badge.bg-danger').length > 0;
-                    var isAvailable = $card.find('.badge.bg-success').length > 0;
-
-                    var show = true;
-
-                    if (makeId && !cardTitle.includes($('#filterMake option:selected').text().toLowerCase())) {
-                        show = false;
+        $(document).ready(function() {
+            // Animation des éléments au défilement
+            const animateOnScroll = () => {
+                $('.card').each(function() {
+                    if ($(this).offset().top < ($(window).scrollTop() + $(window).height() - 100)) {
+                        $(this).addClass('animate__animated animate__fadeInUp');
                     }
-
-                    if (year && cardYear && parseInt(cardYear[1]) < parseInt(year)) {
-                        show = false;
-                    }
-
-                    if (price && cardPrice) {
-                        var priceValue = parseInt(cardPrice[1].replace(/\s/g, ''));
-                        if (priceValue > parseInt(price)) {
-                            show = false;
-                        }
-                    }
-
-                    if (availability === 'available' && !isAvailable) {
-                        show = false;
-                    } else if (availability === 'sold' && !isSold) {
-                        show = false;
-                    }
-
-                    if (searchTerm && !cardTitle.includes(searchTerm)) {
-                        show = false;
-                    }
-
-                    $card.toggle(show);
                 });
+            };
 
-                if ($('.col-md-4:visible').length === 0) {
-                    $('#noCarsMessage').show();
-                } else {
-                    $('#noCarsMessage').hide();
-                }
-            }
+            // Exécuter au chargement et au défilement
+            animateOnScroll();
+            $(window).scroll(animateOnScroll);
 
-            $('#filterMake, #filterYear, #filterPrice, #filterAvailable').change(filterCars);
-            $('#searchButton').click(filterCars);
-            $('#searchInput').keyup(function (e) {
-                if (e.keyCode === 13) {
-                    filterCars();
+            // Gestion dynamique des modèles en fonction de la marque
+            $('#makeSelect').change(function() {
+                var makeId = $(this).val();
+                if (makeId === '') {
+                    $('#modelSelect').html('<option value="">Tous</option>');
+                    return;
                 }
+
+                $.ajax({
+                    url: '@Url.Action("GetModelsByMake", "Cars")',
+                    type: 'GET',
+                    data: { makeId: makeId },
+                    success: function(models) {
+                        var options = '<option value="">Tous</option>';
+                        $.each(models, function(i, model) {
+                            options += '<option value="' + model.id + '">' + model.name + '</option>';
+                        });
+                        $('#modelSelect').html(options);
+                    }
+                });
             });
-
-            filterCars(); // Initial filtering
         });
     </script>
 }

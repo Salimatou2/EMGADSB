@@ -249,6 +249,908 @@
       ]
     },
     {
+      "Route": "images/cars/23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).eoxyu6lwsr.jpeg",
+      "AssetFile": "images/cars/23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14830"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AhtqEdfli9Giscg4e3B3eFT/FAHAK1qXqatXAcItV1M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:34:40 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "eoxyu6lwsr"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-AhtqEdfli9Giscg4e3B3eFT/FAHAK1qXqatXAcItV1M="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg",
+      "AssetFile": "images/cars/23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14830"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"AhtqEdfli9Giscg4e3B3eFT/FAHAK1qXqatXAcItV1M=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:34:40 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-AhtqEdfli9Giscg4e3B3eFT/FAHAK1qXqatXAcItV1M="
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/3ef48438-0412-4c4e-b761-bbe3feb1feea_R.8o0nmvxnun.jpeg",
+      "AssetFile": "images/cars/3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1903531"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 13:19:38 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8o0nmvxnun"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg",
+      "AssetFile": "images/cars/3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1903531"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 13:19:38 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.2bnb3ho7jw.jpg",
+      "AssetFile": "images/cars/44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "37801"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Qq419GoR2MWruEnUMhnD8/HM85vIHirqTgpQWMM7FEs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 22:52:50 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2bnb3ho7jw"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Qq419GoR2MWruEnUMhnD8/HM85vIHirqTgpQWMM7FEs="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg",
+      "AssetFile": "images/cars/44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "37801"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Qq419GoR2MWruEnUMhnD8/HM85vIHirqTgpQWMM7FEs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 22:52:50 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Qq419GoR2MWruEnUMhnD8/HM85vIHirqTgpQWMM7FEs="
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg",
+      "AssetFile": "images/cars/6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "165780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 22:54:27 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.zosp4zz75h.jpg",
+      "AssetFile": "images/cars/6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "165780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 22:54:27 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zosp4zz75h"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg",
+      "AssetFile": "images/cars/a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "165780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 22:38:36 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.zosp4zz75h.jpg",
+      "AssetFile": "images/cars/a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "165780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 22:38:36 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zosp4zz75h"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.62nr0n7qve.jpg",
+      "AssetFile": "images/cars/b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "377959"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"flkbryNpSPgIyQwGSWu9ldBFpIDhbBoKDNNw50M8fik=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:00:36 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "62nr0n7qve"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-flkbryNpSPgIyQwGSWu9ldBFpIDhbBoKDNNw50M8fik="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg",
+      "AssetFile": "images/cars/b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "377959"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"flkbryNpSPgIyQwGSWu9ldBFpIDhbBoKDNNw50M8fik=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:00:36 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-flkbryNpSPgIyQwGSWu9ldBFpIDhbBoKDNNw50M8fik="
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).6gwhyzkfy7.jpeg",
+      "AssetFile": "images/cars/c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1983623"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hoypijF2sKEExRn7bBm0gCBJ/5m6ZmAOYFKW2GpDUOY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:36:02 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6gwhyzkfy7"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hoypijF2sKEExRn7bBm0gCBJ/5m6ZmAOYFKW2GpDUOY="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg",
+      "AssetFile": "images/cars/c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1983623"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hoypijF2sKEExRn7bBm0gCBJ/5m6ZmAOYFKW2GpDUOY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:36:02 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hoypijF2sKEExRn7bBm0gCBJ/5m6ZmAOYFKW2GpDUOY="
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/d21d13f0-4582-4c86-bd07-5dd848e999d0_R.8o0nmvxnun.jpeg",
+      "AssetFile": "images/cars/d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1903531"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 13:44:10 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8o0nmvxnun"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg",
+      "AssetFile": "images/cars/d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1903531"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 13:44:10 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg",
+      "AssetFile": "images/cars/e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "802545"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"skyBFSa3FpSmUchJj1tec1ykGKKVi+MflsdZfvzhzOQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:23:23 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-skyBFSa3FpSmUchJj1tec1ykGKKVi+MflsdZfvzhzOQ="
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.uodkpyb0gg.jpg",
+      "AssetFile": "images/cars/e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "802545"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"skyBFSa3FpSmUchJj1tec1ykGKKVi+MflsdZfvzhzOQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:23:23 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "uodkpyb0gg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-skyBFSa3FpSmUchJj1tec1ykGKKVi+MflsdZfvzhzOQ="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.cijhikm6t3.jpeg",
+      "AssetFile": "images/cars/f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21715"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/IBH6FngHvDT1gWrHmGhKc3ls5J8U6KpHcMDvbwrwlI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:14:55 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cijhikm6t3"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/IBH6FngHvDT1gWrHmGhKc3ls5J8U6KpHcMDvbwrwlI="
+        },
+        {
+          "Name": "label",
+          "Value": "images/cars/f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg"
+        }
+      ]
+    },
+    {
+      "Route": "images/cars/f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg",
+      "AssetFile": "images/cars/f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21715"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/IBH6FngHvDT1gWrHmGhKc3ls5J8U6KpHcMDvbwrwlI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 23:14:55 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/IBH6FngHvDT1gWrHmGhKc3ls5J8U6KpHcMDvbwrwlI="
+        }
+      ]
+    },
+    {
+      "Route": "js/car-form.1jei5jwl8t.js",
+      "AssetFile": "js/car-form.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2341"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"81SfOqQfDMeaq5O4kLYflM8wfdyX0QzQU5R7XTEWcn4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 00:38:04 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "1jei5jwl8t"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-81SfOqQfDMeaq5O4kLYflM8wfdyX0QzQU5R7XTEWcn4="
+        },
+        {
+          "Name": "label",
+          "Value": "js/car-form.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/car-form.js",
+      "AssetFile": "js/car-form.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2341"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"81SfOqQfDMeaq5O4kLYflM8wfdyX0QzQU5R7XTEWcn4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 16 Apr 2025 00:38:04 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-81SfOqQfDMeaq5O4kLYflM8wfdyX0QzQU5R7XTEWcn4="
+        }
+      ]
+    },
+    {
       "Route": "js/site.js",
       "AssetFile": "js/site.js",
       "Selectors": [],

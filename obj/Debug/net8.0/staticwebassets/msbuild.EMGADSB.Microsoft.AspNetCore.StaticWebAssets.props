@@ -54,6 +54,204 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>eoxyu6lwsr</Fingerprint>
+      <Integrity>AhtqEdfli9Giscg4e3B3eFT/FAHAK1qXqatXAcItV1M=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>8o0nmvxnun</Fingerprint>
+      <Integrity>KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>2bnb3ho7jw</Fingerprint>
+      <Integrity>Qq419GoR2MWruEnUMhnD8/HM85vIHirqTgpQWMM7FEs=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>zosp4zz75h</Fingerprint>
+      <Integrity>gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>zosp4zz75h</Fingerprint>
+      <Integrity>gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>62nr0n7qve</Fingerprint>
+      <Integrity>flkbryNpSPgIyQwGSWu9ldBFpIDhbBoKDNNw50M8fik=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>6gwhyzkfy7</Fingerprint>
+      <Integrity>hoypijF2sKEExRn7bBm0gCBJ/5m6ZmAOYFKW2GpDUOY=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>8o0nmvxnun</Fingerprint>
+      <Integrity>KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>uodkpyb0gg</Fingerprint>
+      <Integrity>skyBFSa3FpSmUchJj1tec1ykGKKVi+MflsdZfvzhzOQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>images/cars/f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>cijhikm6t3</Fingerprint>
+      <Integrity>/IBH6FngHvDT1gWrHmGhKc3ls5J8U6KpHcMDvbwrwlI=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\car-form.js'))">
+      <SourceType>Package</SourceType>
+      <SourceId>EMGADSB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/EMGADSB</BasePath>
+      <RelativePath>js/car-form.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>1jei5jwl8t</Fingerprint>
+      <Integrity>81SfOqQfDMeaq5O4kLYflM8wfdyX0QzQU5R7XTEWcn4=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\car-form.js'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))">
       <SourceType>Package</SourceType>
       <SourceId>EMGADSB</SourceId>

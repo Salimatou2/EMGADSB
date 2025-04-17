@@ -23,11 +23,42 @@ namespace EMGADSB.Controllers
             _context = context;
         }
 
+        [HttpGet("/api/get-models-by-make")]
+        public async Task<IActionResult> GetModelsByMake(int makeId)
+        {
+            try
+            {
+                if (makeId <= 0)
+                {
+                    return BadRequest("L'ID de la marque doit être positif");
+                }
+
+                var make = await _context.CarMakes.FindAsync(makeId);
+                if (make == null)
+                {
+                    return NotFound("Marque non trouvée");
+                }
+
+                var models = await _context.CarModels
+                    .Where(m => m.CarMakeId == makeId)
+                    .Select(m => new {
+                        id = m.Id,
+                        name = m.Name
+                    })
+                    .ToListAsync();
+
+                return Ok(models);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Une erreur est survenue: {ex.Message}");
+            }
+        }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
             return await _context.Cars
-                .Include(c => c.CarMakeNavigation)
+                .Include(c => c.CarMake)
                 .ToListAsync();
         }
 
@@ -35,7 +66,7 @@ namespace EMGADSB.Controllers
         public async Task<ActionResult<Car>> GetCar(int id)
         {
             var car = await _context.Cars
-                .Include(c => c.CarMakeNavigation)
+                .Include(c => c.CarMake)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (car == null)

@@ -15,13 +15,13 @@ namespace EMGOXD.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly JwtService _jwtService;
+        private readonly JwtSettings _jwtSettings;
 
-        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, JwtService jwtService)
+        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, JwtSettings jwtService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _jwtService = jwtService;
+            _jwtSettings = jwtService;
         }
 
         public class LoginModel
@@ -46,7 +46,7 @@ namespace EMGOXD.Controllers
             }
 
             var roles = await _userManager.GetRolesAsync(user);
-            var token = _jwtService.GenerateToken(user.Id, user.UserName, roles.ToList());
+            var token = _jwtSettings.GenerateToken(user.Id, user.UserName, roles.ToList());
 
             return Ok(new { token });
         }

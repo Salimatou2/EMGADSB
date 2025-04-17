@@ -1,0 +1,49 @@
+﻿@model CarMake
+
+@{
+    ViewData["Title"] = "Supprimer la marque";
+}
+
+<div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Accueil</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Marques</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Supprimer</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow border-danger">
+        <div class="card-header bg-danger text-white">
+            <h1 class="h3 mb-0">Confirmer la suppression</h1>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Êtes-vous sûr de vouloir supprimer cette marque ? Toutes les voitures et tous les modèles associés à cette marque seront également supprimés.
+            </div>
+
+            <div class="mt-4">
+                <h5>Détails de la marque</h5>
+                <dl class="row">
+                    <dt class="col-sm-3">Nom</dt>
+                    <dd class="col-sm-9">@Model.Name</dd>
+
+                    <dt class="col-sm-3">Nombre de modèles</dt>
+                    <dd class="col-sm-9">@(Model.CarModels?.Count() ?? 0)</dd>
+
+                    <dt class="col-sm-3">Nombre de voitures</dt>
+                    <dd class="col-sm-9">@(Model.Cars?.Count() ?? 0)</dd>
+                </dl>
+            </div>
+
+            <div class="text-end mt-4">
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

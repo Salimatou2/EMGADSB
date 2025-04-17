@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace EMGADSB.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,276 +28,277 @@ namespace EMGADSB.Controllers
             _roleManager = roleManager;
         }
 
-        // GET: Admin
-        // Nouvelle méthode qui redirige vers Dashboard
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-
-        // GET: Admin/Users
-        public async Task<IActionResult> Users()
-        {
-            var users = await _userManager.Users.ToListAsync();
-            var userViewModels = new List<UserViewModel>();
-
-            foreach (var user in users)
+            var viewModel = new DashboardViewModel
             {
-                var roles = await _userManager.GetRolesAsync(user);
-                userViewModels.Add(new UserViewModel
-                {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Roles = roles.ToList()
-                });
-            }
+                TotalCars = await _context.Cars.CountAsync(),
+                AvailableCars = await _context.Cars.Where(c => c.IsAvailable && !c.IsSold).CountAsync(),
+                SoldCars = await _context.Cars.Where(c => c.IsSold).CountAsync(),
+                TotalRevenue = await _context.Cars
+                    .Where(c => c.IsSold)
+                    .SumAsync(c => c.Price),
 
-            return View(userViewModels);
-        }
+                RecentlyAddedCars = await _context.Cars
+                    .Include(c => c.CarMake)
+                    .Include(c => c.CarModel)
+                    .OrderByDescending(c => c.Id)
+                    .Take(5)
+                    .ToListAsync(),
 
-        // GET: Admin/CreateUser
-        public async Task<IActionResult> CreateUser()
-        {
-            var roles = await _roleManager.Roles.ToListAsync();
-            ViewBag.Roles = roles;
-            return View();
-        }
-
-        // POST: Admin/CreateUser
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateUser(CreateUserViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = model.Email,
-                    Email = model.Email
-                };
-
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    if (model.SelectedRoles != null && model.SelectedRoles.Any())
-                    {
-                        await _userManager.AddToRolesAsync(user, model.SelectedRoles);
-                    }
-
-                    return RedirectToAction(nameof(Users));
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-            }
-
-            var roles = await _roleManager.Roles.ToListAsync();
-            ViewBag.Roles = roles;
-            return View(model);
-        }
-
-        // GET: Admin/EditUser/5
-        public async Task<IActionResult> EditUser(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            var userRoles = await _userManager.GetRolesAsync(user);
-            var allRoles = await _roleManager.Roles.ToListAsync();
-
-            var model = new EditUserViewModel
-            {
-                Id = user.Id,
-                Email = user.Email,
-                SelectedRoles = userRoles.ToList()
+                RecentlySoldCars = await _context.Cars
+                    .Include(c => c.CarMake)
+                    .Include(c => c.CarModel)
+                    .Where(c => c.IsSold)
+                    .OrderByDescending(c => c.Id)
+                    .Take(5)
+                    .ToListAsync()
             };
 
-            ViewBag.AllRoles = allRoles;
-            return View(model);
+            return View(viewModel);
         }
 
-        // POST: Admin/EditUser/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(string id, EditUserViewModel model)
-        {
-            if (id != model.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByIdAsync(id);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-
-                user.Email = model.Email;
-                user.UserName = model.Email;
-
-                var result = await _userManager.UpdateAsync(user);
-
-                if (result.Succeeded)
-                {
-                    // Mettre à jour les rôles
-                    var currentRoles = await _userManager.GetRolesAsync(user);
-
-                    // Supprimer les rôles existants
-                    await _userManager.RemoveFromRolesAsync(user, currentRoles);
-
-                    // Ajouter les nouveaux rôles
-                    if (model.SelectedRoles != null && model.SelectedRoles.Any())
-                    {
-                        await _userManager.AddToRolesAsync(user, model.SelectedRoles);
-                    }
-
-                    return RedirectToAction(nameof(Users));
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-            }
-
-            var allRoles = await _roleManager.Roles.ToListAsync();
-            ViewBag.AllRoles = allRoles;
-            return View(model);
-        }
-
-        // POST: Admin/DeleteUser/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteUser(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            // Ne pas permettre de supprimer l'utilisateur actuellement connecté
-            if (User.Identity.Name == user.UserName)
-            {
-                ModelState.AddModelError("", "Vous ne pouvez pas supprimer votre propre compte.");
-                return RedirectToAction(nameof(Users));
-            }
-
-            var result = await _userManager.DeleteAsync(user);
-            if (!result.Succeeded)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-            }
-
-            return RedirectToAction(nameof(Users));
-        }
-
-        // GET: Admin/Roles
+        // GESTION DES ROLES
         public async Task<IActionResult> Roles()
         {
             var roles = await _roleManager.Roles.ToListAsync();
             return View(roles);
         }
 
-        // GET: Admin/CreateRole
+        [HttpGet]
         public IActionResult CreateRole()
         {
             return View();
         }
 
-        // POST: Admin/CreateRole
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var role = new IdentityRole { Name = model.Name };
-                var result = await _roleManager.CreateAsync(role);
-
-                if (result.Succeeded)
+                var roleExists = await _roleManager.RoleExistsAsync(model.Name);
+                if (!roleExists)
                 {
-                    return RedirectToAction(nameof(Roles));
+                    var result = await _roleManager.CreateAsync(new IdentityRole(model.Name));
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(Roles));
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
-
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError(string.Empty, "Ce rôle existe déjà.");
                 }
             }
 
             return View(model);
         }
 
-        // POST: Admin/DeleteRole/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteRole(string id)
+        // GESTION DES UTILISATEURS
+        public async Task<IActionResult> Users()
         {
-            var role = await _roleManager.FindByIdAsync(id);
-            if (role == null)
+            var users = await _userManager.Users.ToListAsync();
+            return View(users);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditUserRoles(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            // Vérifier si des utilisateurs sont dans ce rôle
-            var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
-            if (usersInRole.Any())
+            var model = new EditUserRolesViewModel
             {
-                ModelState.AddModelError("", $"Impossible de supprimer le rôle '{role.Name}' car des utilisateurs y sont assignés.");
-                return RedirectToAction(nameof(Roles));
+                UserId = userId,
+                UserName = user.UserName
+            };
+
+            var roles = await _roleManager.Roles.ToListAsync();
+            foreach (var role in roles)
+            {
+                var isInRole = await _userManager.IsInRoleAsync(user, role.Name);
+                model.Roles.Add(new UserRoleViewModel
+                {
+                    RoleName = role.Name,
+                    IsSelected = isInRole
+                });
             }
 
-            var result = await _roleManager.DeleteAsync(role);
-            if (!result.Succeeded)
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUserRoles(EditUserRolesViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
             {
-                foreach (var error in result.Errors)
+                return NotFound();
+            }
+
+            for (int i = 0; i < model.Roles.Count; i++)
+            {
+                var role = model.Roles[i];
+                var isInRole = await _userManager.IsInRoleAsync(user, role.RoleName);
+
+                if (role.IsSelected && !isInRole)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    await _userManager.AddToRoleAsync(user, role.RoleName);
+                }
+                else if (!role.IsSelected && isInRole)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role.RoleName);
                 }
             }
 
-            return RedirectToAction(nameof(Roles));
+            return RedirectToAction(nameof(Users));
         }
 
-        // GET: Admin/Sales
-        public async Task<IActionResult> Sales()
+        // GESTION DES MARQUES ET MODÈLES
+        // GET: Admin/ManageMakesModels
+        public async Task<IActionResult> ManageMakesModels()
         {
-            var soldCars = await _context.Cars
-                .Include(c => c.CarMakeNavigation)
-                .Where(c => c.IsSold)
-                .OrderByDescending(c => c.DateSold)
-                .ToListAsync();
-
-            // Calculer les statistiques de vente
-            var salesStats = new SalesStatisticsViewModel
+            var viewModel = new ManageMakesModelsViewModel
             {
-                TotalSales = soldCars.Count,
-                TotalRevenue = soldCars.Sum(c => c.SellingPrice),
-                TotalProfit = soldCars.Sum(c => c.SellingPrice - c.PurchasePrice),
-                AverageProfit = soldCars.Any() ? soldCars.Average(c => c.SellingPrice - c.PurchasePrice) : 0
+                Makes = await _context.CarMakes.Include(m => m.CarModels).ToListAsync(),
+                Models = await _context.CarModels.Include(m => m.CarMake).ToListAsync()
             };
 
-            ViewBag.SalesStats = salesStats;
-            return View(soldCars);
+            return View(viewModel);
         }
+
+        // POST: Admin/AddMake
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddMake(string name)
+        {
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                // Vérifier si la marque existe déjà
+                var existingMake = await _context.CarMakes.FirstOrDefaultAsync(m => m.Name == name);
+                if (existingMake == null)
+                {
+                    var make = new CarMake { Name = name };
+                    _context.CarMakes.Add(make);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = $"La marque {name} a été ajoutée avec succès.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = $"La marque {name} existe déjà.";
+                }
+            }
+
+            return RedirectToAction(nameof(ManageMakesModels));
+        }
+
+        // POST: Admin/AddModel
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddModel(int makeId, string name)
+        {
+            if (makeId > 0 && !string.IsNullOrWhiteSpace(name))
+            {
+                // Vérifier si le modèle existe déjà pour cette marque
+                var existingModel = await _context.CarModels
+                    .FirstOrDefaultAsync(m => m.Name == name && m.CarMakeId == makeId);
+
+                if (existingModel == null)
+                {
+                    var model = new CarModel { Name = name, CarMakeId = makeId };
+                    _context.CarModels.Add(model);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = $"Le modèle {name} a été ajouté avec succès.";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = $"Le modèle {name} existe déjà pour cette marque.";
+                }
+            }
+
+            return RedirectToAction(nameof(ManageMakesModels));
+        }
+
+        // POST: Admin/DeleteMake
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteMake(int id)
+        {
+            var make = await _context.CarMakes.Include(m => m.CarModels).FirstOrDefaultAsync(m => m.Id == id);
+            if (make != null)
+            {
+                // Vérifier si des voitures utilisent cette marque
+                var carsUsingMake = await _context.Cars.AnyAsync(c => c.CarMakeId == id);
+                if (carsUsingMake)
+                {
+                    TempData["ErrorMessage"] = $"Impossible de supprimer la marque {make.Name} car elle est utilisée par des voitures.";
+                }
+                else
+                {
+                    // Supprimer tous les modèles associés
+                    _context.CarModels.RemoveRange(make.CarModels);
+                    // Supprimer la marque
+                    _context.CarMakes.Remove(make);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = $"La marque {make.Name} et ses modèles ont été supprimés avec succès.";
+                }
+            }
+
+            return RedirectToAction(nameof(ManageMakesModels));
+        }
+
+        // POST: Admin/DeleteModel
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteModel(int id)
+        {
+            var model = await _context.CarModels.Include(m => m.CarMake).FirstOrDefaultAsync(m => m.Id == id);
+            if (model != null)
+            {
+                // Vérifier si des voitures utilisent ce modèle
+                var carsUsingModel = await _context.Cars.AnyAsync(c => c.CarModelId == id);
+                if (carsUsingModel)
+                {
+                    TempData["ErrorMessage"] = $"Impossible de supprimer le modèle {model.Name} car il est utilisé par des voitures.";
+                }
+                else
+                {
+                    _context.CarModels.Remove(model);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = $"Le modèle {model.Name} a été supprimé avec succès.";
+                }
+            }
+
+            return RedirectToAction(nameof(ManageMakesModels));
+        }
+
+        // GET: Admin/Statistics
+        public async Task<IActionResult> Statistics()
+        {
+            // Créez un modèle de vue avec les statistiques que vous souhaitez afficher
+            var statisticsViewModel = new StatisticsViewModel
+            {
+                // Ajoutez ici les données statistiques dont vous avez besoin
+                TotalCars = await _context.Cars.CountAsync(),
+                SoldCars = await _context.Cars.Where(c => c.IsSold).CountAsync(),
+                TotalRevenue = await _context.Cars
+                    .Where(c => c.IsSold)
+                    .SumAsync(c => c.Price),
+                // ... autres statistiques
+            };
+
+            return View(statisticsViewModel);
+        }
+
     }
 }

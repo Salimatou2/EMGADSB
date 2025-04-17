@@ -93,26 +93,6 @@ namespace EMGADSB.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "6401cc81-5449-4f7e-80bd-99d0b65b698a",
-                            Email = "admin@emgoasb.com",
-                            EmailConfirmed = true,
-                            FirstName = "Admin",
-                            LastName = "Principal",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@EMGOASB.COM",
-                            NormalizedUserName = "ADMIN@EMGOASB.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECHUzJV7VExAPqWBsmgVvk9g8I0n33rUWed8+w3JnosTdzwOERBLsiokdAvqv5RVEQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "3320cadd-5de6-4291-a3f5-9e44524f0636",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@emgoasb.com"
-                        });
                 });
 
             modelBuilder.Entity("EMGADSB.Models.Car", b =>
@@ -124,6 +104,9 @@ namespace EMGADSB.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CarMakeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CarModelId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateAdded")
@@ -146,29 +129,26 @@ namespace EMGADSB.Migrations
                     b.Property<bool>("IsSold")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Make")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("PurchasePrice")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.Property<decimal>("SellingPrice")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Year")
-                        .HasColumnType("int")
-                        .HasAnnotation("MinValue", 2018);
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CarMakeId");
 
-                    b.ToTable("Cars");
+                    b.HasIndex("CarModelId");
+
+                    b.ToTable("Cars", t =>
+                        {
+                            t.HasCheckConstraint("CK_Car_Year", "Year >= 2018");
+                        });
                 });
 
             modelBuilder.Entity("EMGADSB.Models.CarMake", b =>
@@ -186,58 +166,6 @@ namespace EMGADSB.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CarMakes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Toyota"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Honda"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Ford"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "BMW"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Mercedes-Benz"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Audi"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Volkswagen"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Hyundai"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Kia"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Name = "Nissan"
-                        });
                 });
 
             modelBuilder.Entity("EMGADSB.Models.CarModel", b =>
@@ -260,62 +188,6 @@ namespace EMGADSB.Migrations
                     b.HasIndex("CarMakeId");
 
                     b.ToTable("CarModels");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CarMakeId = 1,
-                            Name = "Corolla"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CarMakeId = 1,
-                            Name = "Camry"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CarMakeId = 1,
-                            Name = "RAV4"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CarMakeId = 2,
-                            Name = "Civic"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CarMakeId = 2,
-                            Name = "Accord"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CarMakeId = 2,
-                            Name = "CR-V"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CarMakeId = 3,
-                            Name = "Focus"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CarMakeId = 3,
-                            Name = "Mustang"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CarMakeId = 3,
-                            Name = "F-150"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -343,20 +215,6 @@ namespace EMGADSB.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -444,13 +302,6 @@ namespace EMGADSB.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "1",
-                            RoleId = "1"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -474,24 +325,32 @@ namespace EMGADSB.Migrations
 
             modelBuilder.Entity("EMGADSB.Models.Car", b =>
                 {
-                    b.HasOne("EMGADSB.Models.CarMake", "CarMakeNavigation")
+                    b.HasOne("EMGADSB.Models.CarMake", "CarMake")
                         .WithMany("Cars")
                         .HasForeignKey("CarMakeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("CarMakeNavigation");
+                    b.HasOne("EMGADSB.Models.CarModel", "CarModel")
+                        .WithMany("Cars")
+                        .HasForeignKey("CarModelId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CarMake");
+
+                    b.Navigation("CarModel");
                 });
 
             modelBuilder.Entity("EMGADSB.Models.CarModel", b =>
                 {
-                    b.HasOne("EMGADSB.Models.CarMake", "CarMakeNavigation")
+                    b.HasOne("EMGADSB.Models.CarMake", "CarMake")
                         .WithMany("CarModels")
                         .HasForeignKey("CarMakeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("CarMakeNavigation");
+                    b.Navigation("CarMake");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -499,7 +358,7 @@ namespace EMGADSB.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -508,7 +367,7 @@ namespace EMGADSB.Migrations
                     b.HasOne("EMGADSB.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -517,7 +376,7 @@ namespace EMGADSB.Migrations
                     b.HasOne("EMGADSB.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -526,13 +385,13 @@ namespace EMGADSB.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("EMGADSB.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -541,7 +400,7 @@ namespace EMGADSB.Migrations
                     b.HasOne("EMGADSB.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -549,6 +408,11 @@ namespace EMGADSB.Migrations
                 {
                     b.Navigation("CarModels");
 
+                    b.Navigation("Cars");
+                });
+
+            modelBuilder.Entity("EMGADSB.Models.CarModel", b =>
+                {
                     b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618

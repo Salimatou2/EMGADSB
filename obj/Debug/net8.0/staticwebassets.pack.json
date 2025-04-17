@@ -13,6 +13,50 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg",
+      "PackagePath": "staticwebassets\\images\\cars\\44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg",
+      "PackagePath": "staticwebassets\\images\\cars\\6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg",
+      "PackagePath": "staticwebassets\\images\\cars\\a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg",
+      "PackagePath": "staticwebassets\\images\\cars\\b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg",
+      "PackagePath": "staticwebassets\\images\\cars\\e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\images\\cars\\f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg",
+      "PackagePath": "staticwebassets\\images\\cars\\f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\js\\car-form.js",
+      "PackagePath": "staticwebassets\\js\\car-form.js"
+    },
+    {
       "Id": "C:\\Users\\Administrateur\\source\\repos\\EMG\\EMGADSB\\EMGADSB\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

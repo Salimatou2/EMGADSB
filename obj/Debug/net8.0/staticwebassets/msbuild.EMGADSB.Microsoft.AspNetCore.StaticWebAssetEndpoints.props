@@ -36,6 +36,138 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"5430"},{"Name":"Content-Type","Value":"image/x-icon"},{"Name":"ETag","Value":"\u0022Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM=\u0022"},{"Name":"Last-Modified","Value":"Thu, 10 Apr 2025 00:41:35 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).eoxyu6lwsr.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"eoxyu6lwsr"},{"Name":"integrity","Value":"sha256-AhtqEdfli9Giscg4e3B3eFT/FAHAK1qXqatXAcItV1M="},{"Name":"label","Value":"_content/EMGADSB/images/cars/23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"14830"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022AhtqEdfli9Giscg4e3B3eFT/FAHAK1qXqatXAcItV1M=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:34:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\23fcc455-47f2-4427-804a-b95c9bf1c0e6_OIP (1).jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-AhtqEdfli9Giscg4e3B3eFT/FAHAK1qXqatXAcItV1M="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"14830"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022AhtqEdfli9Giscg4e3B3eFT/FAHAK1qXqatXAcItV1M=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:34:40 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/3ef48438-0412-4c4e-b761-bbe3feb1feea_R.8o0nmvxnun.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"8o0nmvxnun"},{"Name":"integrity","Value":"sha256-KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ="},{"Name":"label","Value":"_content/EMGADSB/images/cars/3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1903531"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 13:19:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\3ef48438-0412-4c4e-b761-bbe3feb1feea_R.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1903531"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 13:19:38 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.2bnb3ho7jw.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"2bnb3ho7jw"},{"Name":"integrity","Value":"sha256-Qq419GoR2MWruEnUMhnD8/HM85vIHirqTgpQWMM7FEs="},{"Name":"label","Value":"_content/EMGADSB/images/cars/44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"37801"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022Qq419GoR2MWruEnUMhnD8/HM85vIHirqTgpQWMM7FEs=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 22:52:50 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\44e2086c-5e62-49a1-b397-91b44dd54013_lanzamiento-toyota-camry-hybrid.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Qq419GoR2MWruEnUMhnD8/HM85vIHirqTgpQWMM7FEs="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"37801"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022Qq419GoR2MWruEnUMhnD8/HM85vIHirqTgpQWMM7FEs=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 22:52:50 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"165780"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 22:54:27 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.zosp4zz75h.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"zosp4zz75h"},{"Name":"integrity","Value":"sha256-gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ="},{"Name":"label","Value":"_content/EMGADSB/images/cars/6460b752-b94b-4070-b9e2-545285a37859_2024-toyota-gr-corolla-circuit-edition_100889301.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"165780"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 22:54:27 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"165780"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 22:38:36 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.zosp4zz75h.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"zosp4zz75h"},{"Name":"integrity","Value":"sha256-gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ="},{"Name":"label","Value":"_content/EMGADSB/images/cars/a2705a7d-d402-41aa-af01-3599d8358128_2024-toyota-gr-corolla-circuit-edition_100889301.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"165780"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022gz1Jt/jSt8wCaBwUwchZWXHs6juPjLGg7NKDK7ewMYQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 22:38:36 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.62nr0n7qve.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"62nr0n7qve"},{"Name":"integrity","Value":"sha256-flkbryNpSPgIyQwGSWu9ldBFpIDhbBoKDNNw50M8fik="},{"Name":"label","Value":"_content/EMGADSB/images/cars/b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"377959"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022flkbryNpSPgIyQwGSWu9ldBFpIDhbBoKDNNw50M8fik=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:00:36 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\b75185f1-0bde-439e-abaf-b7ecc670be73_2022-Honda-Civic-Sedan-Sport-HPD-Package-06.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-flkbryNpSPgIyQwGSWu9ldBFpIDhbBoKDNNw50M8fik="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"377959"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022flkbryNpSPgIyQwGSWu9ldBFpIDhbBoKDNNw50M8fik=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:00:36 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).6gwhyzkfy7.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"6gwhyzkfy7"},{"Name":"integrity","Value":"sha256-hoypijF2sKEExRn7bBm0gCBJ/5m6ZmAOYFKW2GpDUOY="},{"Name":"label","Value":"_content/EMGADSB/images/cars/c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1983623"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022hoypijF2sKEExRn7bBm0gCBJ/5m6ZmAOYFKW2GpDUOY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:36:02 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\c6e7de35-902d-40b3-82d7-f605cce910aa_R (1).jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-hoypijF2sKEExRn7bBm0gCBJ/5m6ZmAOYFKW2GpDUOY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1983623"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022hoypijF2sKEExRn7bBm0gCBJ/5m6ZmAOYFKW2GpDUOY=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:36:02 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/d21d13f0-4582-4c86-bd07-5dd848e999d0_R.8o0nmvxnun.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"8o0nmvxnun"},{"Name":"integrity","Value":"sha256-KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ="},{"Name":"label","Value":"_content/EMGADSB/images/cars/d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1903531"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 13:44:10 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\d21d13f0-4582-4c86-bd07-5dd848e999d0_R.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"1903531"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022KOVwpGIRold66KUOr5eWPj7mlJPnOVn/2ZdF7WUZLqQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 13:44:10 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-skyBFSa3FpSmUchJj1tec1ykGKKVi\u002BMflsdZfvzhzOQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"802545"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022skyBFSa3FpSmUchJj1tec1ykGKKVi\u002BMflsdZfvzhzOQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:23:23 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.uodkpyb0gg.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"uodkpyb0gg"},{"Name":"integrity","Value":"sha256-skyBFSa3FpSmUchJj1tec1ykGKKVi\u002BMflsdZfvzhzOQ="},{"Name":"label","Value":"_content/EMGADSB/images/cars/e8552267-9e43-4100-9acb-d8f061e27f86_BMW-X5-M-Performance-Parts-2.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"802545"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022skyBFSa3FpSmUchJj1tec1ykGKKVi\u002BMflsdZfvzhzOQ=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:23:23 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.cijhikm6t3.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"cijhikm6t3"},{"Name":"integrity","Value":"sha256-/IBH6FngHvDT1gWrHmGhKc3ls5J8U6KpHcMDvbwrwlI="},{"Name":"label","Value":"_content/EMGADSB/images/cars/f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"21715"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022/IBH6FngHvDT1gWrHmGhKc3ls5J8U6KpHcMDvbwrwlI=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:14:55 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/images/cars/f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\cars\f8b8a770-d327-400d-8fa0-629bdef0011b_OIP.jpeg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-/IBH6FngHvDT1gWrHmGhKc3ls5J8U6KpHcMDvbwrwlI="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"21715"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022/IBH6FngHvDT1gWrHmGhKc3ls5J8U6KpHcMDvbwrwlI=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 23:14:55 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/js/car-form.1jei5jwl8t.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\car-form.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"1jei5jwl8t"},{"Name":"integrity","Value":"sha256-81SfOqQfDMeaq5O4kLYflM8wfdyX0QzQU5R7XTEWcn4="},{"Name":"label","Value":"_content/EMGADSB/js/car-form.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2341"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u002281SfOqQfDMeaq5O4kLYflM8wfdyX0QzQU5R7XTEWcn4=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 00:38:04 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/EMGADSB/js/car-form.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\car-form.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-81SfOqQfDMeaq5O4kLYflM8wfdyX0QzQU5R7XTEWcn4="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2341"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u002281SfOqQfDMeaq5O4kLYflM8wfdyX0QzQU5R7XTEWcn4=\u0022"},{"Name":"Last-Modified","Value":"Wed, 16 Apr 2025 00:38:04 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/EMGADSB/js/site.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

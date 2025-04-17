@@ -31,6 +31,14 @@ L'application intègre un système d’authentification avec des rôles (Admin et Use
 
 ---
 
+Conexion 
+
+Email : admin@emgoasb.com
+Mot de passe : Admin123!
+
+---
+
+
 ## Lancer le projet en local
 
 1. **Cloner le projet**

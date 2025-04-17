@@ -4,36 +4,83 @@ using Microsoft.OpenApi.Models;
 using EMGADSB.Data;
 using EMGADSB.Models;
 using EMGADSB.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
+// Program.cs (pour .NET 6+)
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuration du DbContext principal
+// Configuration de la connexion à la base de données
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Configuration de l'authentification avec Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
+// Configuration d'Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 8;
+    options.SignIn.RequireConfirmedAccount = false; // Désactiver la confirmation d'email pour simplifier
 })
-.AddEntityFrameworkStores<ApplicationDbContext>() // Utilise le même ApplicationDbContext pour Identity
+.AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-// Configuration de JWT
-builder.Services.ConfigureJwt(builder.Configuration);
-builder.Services.AddScoped<JwtService>();
+// Configuration de l'authentification
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+.AddCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.ExpireTimeSpan = TimeSpan.FromHours(2);
+    options.SlidingExpiration = true;
+});
 
-// Ajout des contrôleurs et des vues Razor
+// Configuration JWT
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+builder.Services.Configure<JwtSettings>(jwtSettings);
+var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"]);
+
+// Ajouter l'authentification JWT pour l'API
+builder.Services.AddAuthentication()
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+// Configuration des services MVC
 builder.Services.AddControllersWithViews();
 
-// Configuration de Swagger
+// Configuration de l'injection de dépendances pour les services
+builder.Services.AddScoped<JwtSettings>();
+
+// Configuration pour Swagger si nécessaire
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "EMGADSB API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "EMG Voitures API", Version = "v1" });
+
+    // Configuration de l'authentification JWT pour Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
@@ -42,6 +89,7 @@ builder.Services.AddSwaggerGen(c =>
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
+
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -53,19 +101,19 @@ builder.Services.AddSwaggerGen(c =>
                     Id = "Bearer"
                 }
             },
-            new string[] {}
+            Array.Empty<string>()
         }
     });
 });
 
 var app = builder.Build();
 
-// Configuration des middlewares
+// Configuration du pipeline de requêtes HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EMGADSB API v1"));
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EMG Voitures API v1"));
 }
 else
 {
@@ -75,44 +123,29 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
-app.UseAuthentication(); // Middleware pour l'authentification
-app.UseAuthorization(); // Middleware pour l'autorisation
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Migration automatique au démarrage
+// Création des rôles par défaut et du premier utilisateur admin
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
-        var dbContext = services.GetRequiredService<ApplicationDbContext>();
-        dbContext.Database.Migrate(); // Applique les migrations
-        Console.WriteLine("Migrations appliquées avec succès.");
+        // Initialisation de la base de données et création de l'admin par défaut
+        await DbInitializer.InitializeAsync(services);
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Une erreur est survenue lors de l'application des migrations.");
-    }
-}
-
-// Initialisation de la base de données (création des rôles et utilisateur Admin)
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        // Appel à DbInitializer pour l'initialisation
-        await DbInitializer.Initialize(services);
-        Console.WriteLine("Base de données initialisée avec succès.");
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine("Erreur lors de l'initialisation de la base de données: " + ex.Message);
+        logger.LogError(ex, "Une erreur s'est produite lors de l'initialisation de la base de données.");
     }
 }
 

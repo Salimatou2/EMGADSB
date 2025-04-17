@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EMGADSB")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dcb030e4cf1530895bd68ee262d7eeedf3590f0f")]
 [assembly: System.Reflection.AssemblyProductAttribute("EMGADSB")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EMGADSB")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

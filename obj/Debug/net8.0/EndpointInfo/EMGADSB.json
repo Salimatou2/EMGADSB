@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "EMGADSB API",
+    "title": "EMG Voitures API",
     "version": "v1"
   },
   "paths": {
@@ -119,6 +119,28 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/get-models-by-make": {
+      "get": {
+        "tags": [
+          "CarsApi"
+        ],
+        "parameters": [
+          {
+            "name": "makeId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -358,35 +380,38 @@
   "components": {
     "schemas": {
       "Car": {
+        "required": [
+          "carMakeId",
+          "carModelId",
+          "description",
+          "name",
+          "price",
+          "year"
+        ],
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "make": {
-            "type": "string",
-            "nullable": true
-          },
-          "model": {
-            "type": "string",
-            "nullable": true
+          "name": {
+            "minLength": 1,
+            "type": "string"
           },
           "year": {
+            "maximum": 2100,
+            "minimum": 2018,
             "type": "integer",
             "format": "int32"
           },
-          "purchasePrice": {
+          "price": {
+            "minimum": 0,
             "type": "number",
-            "format": "double"
-          },
-          "sellingPrice": {
-            "type": "number",
-            "format": "double"
+            "format": "currency"
           },
           "description": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "imageUrl": {
             "type": "string",
@@ -411,8 +436,15 @@
             "type": "integer",
             "format": "int32"
           },
-          "carMakeNavigation": {
+          "carMake": {
             "$ref": "#/components/schemas/CarMake"
+          },
+          "carModelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "carModel": {
+            "$ref": "#/components/schemas/CarModel"
           }
         },
         "additionalProperties": false
@@ -460,8 +492,15 @@
             "type": "integer",
             "format": "int32"
           },
-          "carMakeNavigation": {
+          "carMake": {
             "$ref": "#/components/schemas/CarMake"
+          },
+          "cars": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Car"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false

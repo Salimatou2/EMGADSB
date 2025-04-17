@@ -1,0 +1,69 @@
+﻿@model Car
+
+@{
+    ViewData["Title"] = "Supprimer la voiture";
+}
+
+<div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Accueil</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Inventaire</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Supprimer</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow border-danger">
+        <div class="card-header bg-danger text-white">
+            <h1 class="h3 mb-0">Confirmer la suppression</h1>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Êtes-vous sûr de vouloir supprimer cette voiture ? Cette action est irréversible.
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.Name">
+                    }
+                    else
+                    {
+                        <img src="/images/cars/default.jpg" class="img-fluid rounded" alt="@Model.Name">
+                    }
+                </div>
+                <div class="col-md-8">
+                    <h3>@Model.Name</h3>
+                    <h5 class="text-muted">@Model.CarMake.Name @Model.CarModel.Name (@Model.Year)</h5>
+                    <p><strong>Prix:</strong> @Model.Price.ToString("C")</p>
+                    <p>
+                        <strong>Statut:</strong>
+                        @if (!Model.IsAvailable)
+                        {
+                            <span class="badge bg-danger">Non disponible</span>
+                        }
+                        else if (Model.IsSold)
+                        {
+                            <span class="badge bg-warning">Vendu</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Disponible</span>
+                        }
+                    </p>
+                    <p>@Model.Description</p>
+                </div>
+            </div>
+
+            <div class="text-end mt-4">
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

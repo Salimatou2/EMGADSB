@@ -1,0 +1,149 @@
+﻿@model EMGADSB.ViewModels.ManageMakesModelsViewModel
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Gérer les marques et modèles";
+    // Préparation des données triées
+    var sortedMakes = Model.Makes.OrderBy(m => m.Name).ToList();
+    var sortedModels = Model.Models.OrderBy(m => m.CarMake.Name).ThenBy(m => m.Name).ToList();
+}
+
+<div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Accueil</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Administration</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Gestion des marques et modèles</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4">Gérer les marques et modèles</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <!-- Section pour gérer les marques -->
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Marques de voitures</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddMake" method="post" class="mb-4">
+                        <div class="input-group">
+                            <input type="text" name="name" class="form-control" placeholder="Nouvelle marque" required>
+                            <button class="btn btn-primary" type="submit">Ajouter</button>
+                        </div>
+                    </form>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Modèles</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var make in sortedMakes)
+                                {
+                                    <tr>
+                                        <td>@make.Name</td>
+                                        <td>@(make.CarModels?.Count ?? 0)</td>
+                                        <td>
+                                            <form asp-action="DeleteMake" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette marque et tous ses modèles?');">
+                                                <input type="hidden" name="id" value="@make.Id">
+                                                <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section pour gérer les modèles -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Modèles de voitures</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddModel" method="post" class="mb-4">
+                        <div class="row g-2">
+                            <div class="col-md-5">
+                                <select name="makeId" class="form-select" required>
+                                    <option value="">-- Sélectionner une marque --</option>
+                                    @foreach (var make in sortedMakes)
+                                    {
+                                        <option value="@make.Id">@make.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" name="name" class="form-control" placeholder="Nouveau modèle" required>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary w-100" type="submit">Ajouter</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Marque</th>
+                                    <th>Modèle</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var carModel in sortedModels)
+                                {
+                                    <tr>
+                                        <td>@carModel.CarMake.Name</td>
+                                        <td>@carModel.Name</td>
+                                        <td>
+                                            <form asp-action="DeleteModel" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce modèle?');">
+                                                <input type="hidden" name="id" value="@carModel.Id">
+                                                <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-fermeture des alertes après 5 secondes
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 5000);
+    </script>
+}
